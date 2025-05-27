@@ -83,7 +83,7 @@ pie showData
 ## 🛠️ Enterprise Technology Stack
 
 **AI Core Infrastructure**
-- Gemini API 1.5 Flash (Enterprise SLA)
+- Gemini API 2.5 Flash (Enterprise SLA)
 - Custom NLU Pipeline (98.7% accuracy)
 - Real-Time Audio Processing Engine <3ms latency
 - Multilingual Embeddings (9 language matrix)
