@@ -1,4 +1,4 @@
-# 🎯 Elevate Hospitality Excellence: AI-Powered Staff Mastery Platform
+# FluentAi 🎯 Elevate Hospitality Excellence: AI-Powered Staff Mastery Platform
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Google Cloud Run](https://img.shields.io/badge/Cloud-Google%20Cloud%20Run%20(Gen2)-4285f4?logo=google-cloud)](https://cloud.google.com/run)
@@ -181,8 +181,8 @@ We offer dedicated support for chain operators:
 - Regional Compliance Packs
 
 **Contact Solutions Architects:**  
-📧 enterprise@restaurantaitrainer.com  
-📞 +1 (888) 555-HELP
+📧 jewel@w3jdev.com  
+📞 +60 (116) 060-0963
 
 ---
 
