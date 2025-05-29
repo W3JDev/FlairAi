@@ -7,27 +7,72 @@
 
 **Enterprise-Grade Staff Optimization Platform for Modern Hospitality Operations**
 
-[Live Production Environment](https://flareai-a-restaurant-trainer-ai-339008138670.us-west1.run.app/) | [Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
+[Live Production Environment](https://flareai-a-restaurant-trainer-ai-339008138670.us-west1.run.app/)  
+[Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
 
-![Platform Interface](https://via.placeholder.com/1920x1080.png?text=AI+Training+Dashboard+with+Real-time+Analytics)
+---
+
+## 🚀 See FlareAi in Action
+
+### 🌟 Product Demo Video
+
+[![Watch Product Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists-with-new-flarebot-button.png)](FLARE-AI-MEDIA-FILES/FLARE-AI-DEMO-Product%20Video.mp4)
+<br>
+<sub>Click the image above to watch the full Product Demo Video</sub>
+
+---
+
+### 🎬 Multilingual Demo Highlights
+
+| BM Language Demo | Chinese Language Demo | Myanmar Language Demo |
+|:---:|:---:|:---:|
+| [![BM Demo](FLARE-AI-MEDIA-FILES/Aura%20Assista%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-BM-DEMO-VIDEO.mp4) | [![Chinese Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-Chinese-Language-DEMO-VIDEO.mp4) | [![Myanmar Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists.png)](FLARE-AI-MEDIA-FILES/flareAi-Mayanmer-Language-DEMO-VIDEO.mp4) |
+
+---
+
+## 🖼️ Platform Screens & Key Features
+
+### 1. Data Entry & Onboarding
+
+**FlareAi Personal Info Data Form**
+
+![FlareAi Personal Info Data Form](FLARE-AI-MEDIA-FILES/FlareAi-%20Personal%20Info%20Data%20Form.png)
+
+---
+
+### 2. Preset Assistance & FlareBot
+
+**Preset Lists with New FlareBot Button**
+
+![Preset Lists with FlareBot](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists-with-new-flarebot-button.png)
+
+---
+
+### 3. Persona, Voice & SOP Data UI
+
+**Create New FlareBot UI: Voice, Persona, Restaurant/Menu, SOP**
+
+![FlareBot Creation UI](FLARE-AI-MEDIA-FILES/FlareAi-Create-new-flarebot-UI-page-voice_selection-persona-restaurant&menu-data-sop_data-input.png)
+
+---
+
+### 4. AI-Assisted Navigation & Streaming
+
+**FlareAi App: Navigate Aura Assist, Play to Start Streaming**
+
+![FlareAi Assist Streaming](FLARE-AI-MEDIA-FILES/FlareAi-FlareAi%20app%20assist%20to%20nevigate%20through%20Flare%20-Aura%20Assist%20page-%20Click%20Play%20Button%20TO-start-streaming.png)
+
+---
 
 ## 🌐 Industry Landscape Analysis
 
 ### Critical Hospitality Challenges (2024 NRA Report Data)
-- **Staff Retention**: 73% of operators cite staffing as top challenge
-- **Training Costs**: $4,200 average new hire ramp-up cost
-- **Performance Gaps**: 68% of customers report inconsistent service quality
-- **Multilingual Needs**: 42% of staff require L2 language support
+- **Staff Retention:** 73% of operators cite staffing as top challenge
+- **Training Costs:** $4,200 average new hire ramp-up cost
+- **Performance Gaps:** 68% of customers report inconsistent service quality
+- **Multilingual Needs:** 42% of staff require L2 language support
 
-### Quantified Impact of Traditional Training
-```mermaid
-pie showData
-    title Training Efficiency Loss
-    "Time Spent on Coordination" : 35
-    "Knowledge Retention Loss" : 28
-    "Scenario Coverage Gaps" : 22
-    "Assessment Delays" : 15
-```
+---
 
 ## 🏆 Strategic Differentiation Matrix
 
@@ -38,110 +83,7 @@ pie showData
 | Language Support         | 2 languages       | 9 core languages  | 350% expansion    |
 | Compliance Certification | 68% pass rate     | 92% pass rate     | 35% improvement   |
 
-## 🚀 Core Platform Capabilities
-
-### AI-Persona Orchestration Engine
-**Tier 1 Personas (Compliance Critical)**
-- 🚨 Health & Safety Inspector v3.4
-- ⚠️ ADA Compliance Auditor v2.1
-- 🔥 Crisis Response Trainer v4.0
-
-**Tier 2 Personas (Revenue Impact)**
-- 🍷 Sommelier Upsell Coach (Wine Pairing Mastery)
-- 🥩 Premium Cut Specialist (Steakhouse Edition)
-- 🎉 Event Upsell Strategist (Wedding/Group Sales)
-
-**Tier 3 Personas (Cultural Competency)**
-- 🌏 ASEAN Cultural Protocol Bundle
-- 🧕 MENA Hospitality Specialist
-- 🌐 Global Dietary Restriction Expert
-
-### Real-Time Performance Analytics
-```json
-{
-  "session_id": "TRN-2024-MAL-2294",
-  "employee": {
-    "id": "EMP-2294",
-    "role": "Lead Server",
-    "experience": "1.8 years"
-  },
-  "metrics": {
-    "response_time": "2.4s avg",
-    "upsell_attempts": 14,
-    "success_rate": "82%",
-    "sentiment_trend": "+0.88",
-    "compliance_score": "96/100",
-    "knowledge_gaps": ["wine_pairings", "allergy_protocols"]
-  },
-  "recommendations": [
-    "Advanced mixology module (Priority 1)",
-    "Cultural sensitivity training (Priority 2)"
-  ]
-}
-```
-
-## 🛠️ Enterprise Technology Stack
-
-**AI Core Infrastructure**
-- Gemini API 2.5 Flash (Enterprise SLA)
-- Custom NLU Pipeline (98.7% accuracy)
-- Real-Time Audio Processing Engine <3ms latency
-- Multilingual Embeddings (9 language matrix)
-
-**Frontend Architecture**
-- React 18 + TypeScript 5.2
-- Web Audio API v2.3
-- Three.js Visualization Engine
-- Accessibility-Compliant UI (WCAG 2.1 AA)
-
-**Backend Services**
-- Node.js 18.x (ESM)
-- Firebase Realtime Database
-- Redis Enterprise Cluster
-- Distributed Task Queue (BullMQ)
-
-**DevOps & Security**
-- GitOps Workflow (ArgoCD)
-- CI/CD Pipelines (GitHub Actions)
-- SOC 2 Type II Compliance
-- GDPR/CCPA Ready
-
-## 📊 Measurable Business Outcomes
-
-### Pilot Program Results (Q2 2024)
-- **Onboarding Acceleration**: 73% reduction in time-to-certification
-- **Upsell Impact**: 22% increase in average check size
-- **Compliance**: 94% audit readiness score
-- **Staff Retention**: 41% reduction in 90-day turnover
-
-```mermaid
-gantt
-    title Implementation Roadmap
-    dateFormat  YYYY-MM-DD
-    section Core Platform
-    API Integration      :active, 2024-01-01, 60d
-    Compliance Modules   :2024-03-01, 45d
-    section Enterprise Features
-    LMS Integration      :2024-04-15, 30d
-    POS Connectivity     :2024-05-01, 45d
-    section Global Expansion
-    MENA Localization    :2024-06-01, 60d
-    APAC Compliance Pack :2024-07-15, 75d
-```
-
-## 🔗 Enterprise Integration Framework
-
-### Supported Systems
-- **HRIS**: Workday, BambooHR, SAP SuccessFactors
-- **POS**: Toast, Square, Micros, Clover
-- **LMS**: Cornerstone, TalentLMS, Docebo
-- **Analytics**: Tableau, Power BI, Looker
-
-### Security Protocols
-- AES-256 Encryption (Data at Rest)
-- TLS 1.3 (Data in Transit)
-- OAuth 2.0 + SAML 2.0
-- HIPAA-Compliant Audio Processing
+---
 
 ## 🚦 Getting Started (Enterprise Edition)
 
@@ -164,13 +106,26 @@ docker-compose -f docker-compose.enterprise.yml up --build
 https://localhost:3000/admin
 ```
 
+---
+
 ## 🌍 Global Language Support
 
-**Core Languages (Production-Ready)**
+**Core Languages (Production-Ready):**  
 `Bahasa Malaysia` `Malaysian Chinese` `Malaysian Tamil` `Myanmar` `Bengali` `English` `Arabic` `Mandarin` `Spanish`
 
-**Q4 2024 Roadmap**
+**Q4 2024 Roadmap:**  
 `Vietnamese` `Thai` `Japanese` `Korean` `French`
+
+---
+
+## 🔥 Why FlareAi? (“Hotcake” Appeal)
+
+- Real, visually rich demos in multiple languages
+- Modern, intuitive UI with step-by-step staff guidance
+- Instant onboarding, SOP and compliance coverage
+- Enterprise-ready, scalable, and secure
+
+---
 
 ## 📞 Enterprise Partnership Program
 
@@ -189,3 +144,12 @@ We offer dedicated support for chain operators:
 **© 2024 FlareAi. All Rights Reserved.**  
 *Transforming Hospitality Human Capital Through AI Innovation*
 
+---
+
+### _Tips for best presentation:_
+- On GitHub, images will display natively; videos are clickable links via image thumbnails.  
+- For a web landing page, you can use `<video>` tags for direct playback.
+
+---
+
+Let me know if you want this README further tailored (e.g. more marketing punch, more technical focus, or specific branding colors/styles)!
