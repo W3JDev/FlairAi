@@ -1,4 +1,4 @@
-# FluentAi 🎯 Elevate Hospitality Excellence: AI-Powered Staff Mastery Platform
+# FlareAi 🎯 Elevate Hospitality Excellence: AI-Powered Staff Mastery Platform
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Google Cloud Run](https://img.shields.io/badge/Cloud-Google%20Cloud%20Run%20(Gen2)-4285f4?logo=google-cloud)](https://cloud.google.com/run)
@@ -7,7 +7,7 @@
 
 **Enterprise-Grade Staff Optimization Platform for Modern Hospitality Operations**
 
-[Live Production Environment](https://restaurant-ai-trainer-339008138670.us-west1.run.app/) | [Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
+[Live Production Environment](https://flareai-a-restaurant-trainer-ai-339008138670.us-west1.run.app/) | [Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
 
 ![Platform Interface](https://via.placeholder.com/1920x1080.png?text=AI+Training+Dashboard+with+Real-time+Analytics)
 
@@ -31,7 +31,7 @@ pie showData
 
 ## 🏆 Strategic Differentiation Matrix
 
-| Capability               | Industry Standard | Our Platform      | Delta Improvement |
+| Capability               | Industry Standard | FlareAi           | Delta Improvement |
 |--------------------------|-------------------|-------------------|-------------------|
 | Onboarding Speed         | 14 days           | 3.7 days          | 73% faster        |
 | Scenario Coverage        | 18 scenarios      | 127+ scenarios    | 605% increase     |
@@ -186,6 +186,6 @@ We offer dedicated support for chain operators:
 
 ---
 
-**© 2024 Restaurant AI Trainer. All Rights Reserved.**  
+**© 2024 FlareAi. All Rights Reserved.**  
 *Transforming Hospitality Human Capital Through AI Innovation*
-```
+
