@@ -5,12 +5,7 @@
 [![React 18](https://img.shields.io/badge/Frontend-React_18-61dafb?logo=react)](https://react.dev/)
 ![TypeScript 5.2](https://img.shields.io/badge/TypeScript-5.2-3178c6?logo=typescript)
 
-**Enterprise-Grade Staff Optimization Platform for Modern Hospitality Operations**  
-**Supercharge Your Team. Delight Your Guests. Outpace the Competition.**
-
-<div align="center" style="background: linear-gradient(90deg, #1f2937 0%, #4285f4 100%); color: #fff; border-radius: 8px; padding: 1em 0;">
-  <b>🚀 Transform your workforce with FlareAi’s intuitive, AI-driven training & compliance platform!</b>
-</div>
+**Enterprise-Grade Staff Optimization Platform for Modern Hospitality Operations**
 
 [Live Production Environment](https://flareai-a-restaurant-trainer-ai-339008138670.us-west1.run.app/)  
 [Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
@@ -21,8 +16,9 @@
 
 ### 🌟 Product Demo Video
 
-[▶️ Watch the Full Product Demo on YouTube](https://youtu.be/2OS9nXsjUnE)  
-<sub>See FlareAi’s advanced workflow, UI, and real-world staff transformation in under 3 minutes!</sub>
+[![Watch Product Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists-with-new-flarebot-button.png)](FLARE-AI-MEDIA-FILES/FLARE-AI-DEMO-Product%20Video.mp4)
+<br>
+<sub>Click the image above to watch the full Product Demo Video</sub>
 
 ---
 
@@ -30,18 +26,17 @@
 
 | BM Language Demo | Chinese Language Demo | Myanmar Language Demo |
 |:---:|:---:|:---:|
-| [▶️ Watch BM Demo](https://youtu.be/NFGRLJHTXEE) | [▶️ Watch Chinese Demo](https://youtu.be/W0PWl7i3B1o) | [▶️ Watch Myanmar Demo](https://youtu.be/MKCjtAyMEPM) |
-
-<sub>Experience FlareAi’s AI-powered hospitality training in Bahasa Malaysia, Chinese, and Myanmar — designed for global reach and local impact.</sub>
+| [![BM Demo](FLARE-AI-MEDIA-FILES/Aura%20Assista%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-BM-DEMO-VIDEO.mp4) | [![Chinese Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-Chinese-Language-DEMO-VIDEO.mp4) | [![Myanmar Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists.png)](FLARE-AI-MEDIA-FILES/flareAi-Mayanmer-Language-DEMO-VIDEO.mp4) |
 
 ---
 
 ## 🖼️ Platform Screens & Key Features
 
-> **Brand Style Tip:**  
-> For web or marketing pages, reinforce your look with a dark background (`#1f2937`), accent gradients (`#4285f4`), and chat-inspired rounded cards or bubbles for section headers.
-
 ### 1. Data Entry & Onboarding
+
+**Aura Assista Personal Info Data Form**
+
+![Aura Assista Personal Info Data Form](FLARE-AI-MEDIA-FILES/Aura%20Assista%20Personal%20Info%20Data%20Form.png)
 
 **FlareAi Personal Info Data Form**
 
@@ -54,6 +49,10 @@
 **Preset Lists with New FlareBot Button**
 
 ![Preset Lists with FlareBot](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists-with-new-flarebot-button.png)
+
+**Preset Lists**
+
+![Preset Lists](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists.png)
 
 ---
 
@@ -133,7 +132,6 @@ https://localhost:3000/admin
 - Modern, intuitive UI with step-by-step staff guidance
 - Instant onboarding, SOP and compliance coverage
 - Enterprise-ready, scalable, and secure
-- **Built on Google Cloud Run, React 18, TypeScript 5.2 for reliability & speed**
 
 ---
 
