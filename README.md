@@ -7,6 +7,10 @@
 
 **Enterprise-Grade Staff Optimization Platform for Modern Hospitality Operations**
 
+<p align="center">
+  <img src="https://github.com/W3JDev/FlairAi/blob/Lets-Coin/FLARE-AI-MEDIA-FILES/FLARE%20AI%20LOGO.png?raw=true" alt="Flare Ai Logo" width="260"/>
+</p>
+
 [Live Production Environment](https://flareai-a-restaurant-trainer-ai-339008138670.us-west1.run.app/)  
 [Technical Documentation](docs/) | [API Reference](api/) | [Case Studies](casestudies/)
 
@@ -14,9 +18,17 @@
 
 ## 🚀 See FlareAi in Action
 
+<!-- NEW: Mockup Demo Section, before live demo/video section -->
+<p align="center">
+  <b>Mockup Demo</b><br>
+  <img src="FLARE-AI-MEDIA-FILES/FLARE_AI_DEMO_mockup.png" alt="Flare AI Demo Mockup" width="600"/>
+</p>
+
+---
+
 ### 🌟 Product Demo Video
 
-[![Watch Product Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists-with-new-flarebot-button.png)](FLARE-AI-MEDIA-FILES/FLARE-AI-DEMO-Product%20Video.mp4)
+[![Watch Product Demo]()](FLARE-AI-MEDIA-FILES/FLARE-AI-DEMO-Product%20Video.mp4)
 <br>
 <sub>Click the image above to watch the full Product Demo Video</sub>
 
@@ -27,6 +39,13 @@
 | BM Language Demo | Chinese Language Demo | Myanmar Language Demo |
 |:---:|:---:|:---:|
 | [![BM Demo](FLARE-AI-MEDIA-FILES/Aura%20Assista%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-BM-DEMO-VIDEO.mp4) | [![Chinese Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Personal%20Info%20Data%20Form.png)](FLARE-AI-MEDIA-FILES/flareAi-Chinese-Language-DEMO-VIDEO.mp4) | [![Myanmar Demo](FLARE-AI-MEDIA-FILES/FlareAi-%20Assist-Preset-Lists.png)](FLARE-AI-MEDIA-FILES/flareAi-Mayanmer-Language-DEMO-VIDEO.mp4) |
+
+---
+
+<!-- NEW: CTA Image after Multilingual Demo Highlights -->
+<p align="center">
+  <img src="FLARE-AI-MEDIA-FILES/transform_your_restuarant_with_flare_ai.png" alt="Transform Your Restaurant with Flare AI" width="600"/>
+</p>
 
 ---
 
