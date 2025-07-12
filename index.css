@@ -1,0 +1,1247 @@
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  /* New Premium Color Palette */
+  --Neutral-00: #0D1117; /* Deep Navy - Main Background */
+  --Neutral-5: #161B22;  /* Darker Surface */
+  --Neutral-10: #1C2128; /* Surface */
+  --Neutral-15: #232830; /* Subtle borders, dividers */
+  --Neutral-20: #2A3038; /* Hover states for dark elements */
+  --Neutral-30: #404852; /* Disabled elements, subtle borders */
+  --Neutral-50: #7D8590; /* Secondary text, icons */
+  --Neutral-60: #ADB5BD; /* Primary icon color, placeholders */
+  --Neutral-80: #C9D1D9; /* Primary text color */
+  --Neutral-90: #F0F6FC; /* Text on primary accent backgrounds */
+
+  --Accent-Blue-Primary: #58A6FF; /* Bright, modern blue for actions */
+  --Accent-Blue-Hover: #79BBFF;
+  --Accent-Blue-ActiveBG: #2188FF; /* For active states or darker blue needs */
+  --Accent-Red-Error: #F85149; /* For errors or destructive actions */
+  --Accent-Green-Success: #3FB950;
+  --Accent-Yellow-Warning: #F7B829;
+
+  --card-header: var(--Accent-Blue-Primary);
+  --card-border: var(--Neutral-15);
+  --card-background: var(--Neutral-10);
+  --card-border-radius: 8px; /* Softer corners */
+
+  --text: var(--Neutral-80);
+  --background: var(--Neutral-00);
+  --color: var(--text);
+  scrollbar-color: var(--Neutral-30) var(--Neutral-5);
+  scrollbar-width: thin;
+  --font-family: 'Google Sans Display', 'Space Mono', monospace, sans-serif;
+
+  /* Keep existing for compatibility if not all are replaced immediately */
+  --gray-200: #b4b8bb;
+  --gray-300: #80868b;
+  --gray-500: #5f6368;
+  --gray-600: #80868b;
+  --gray-700: #5f6368;
+  --gray-800: #3c4043;
+  --gray-900: #202124;
+  --gray-1000: #0a0a0a;
+  --border-stroke: #444444;
+  --accent-blue: rgb(161, 228, 242);
+  --accent-blue-active: #98beff;
+  --accent-blue-headers: #448dff; /* old, to be replaced by Accent-Blue-Primary */
+  --accent-green: rgb(168, 218, 181);
+  --midnight-blue: rgb(0, 18, 51);
+  --blue-30: #99beff;
+  --accent-red: #ff4600; /* old, to be replaced by Accent-Red-Error */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6; /* Improved readability */
+  font-size: 16px; /* Base font size for mobile */
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px; /* Slightly larger for desktop */
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600; /* Bolder headings */
+  line-height: 1.3;
+  color: var(--Neutral-90);
+  margin-bottom: 0.75em;
+}
+h1 { font-size: 2.25rem; } /* ~36px */
+h2 { font-size: 1.875rem; } /* ~30px */
+h3 { font-size: 1.5rem; } /* ~24px */
+
+
+li {
+  list-style: none;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-family);
+  background: var(--Neutral-5);
+  color: var(--text);
+  border: 1px solid var(--Neutral-15);
+  outline: none;
+  font-size: 1rem; /* ~16px or 18px based on body */
+  resize: none;
+  user-select: text;
+  padding: 12px 15px; /* Increased padding */
+  border-radius: var(--card-border-radius);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--Accent-Blue-Primary);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25); /* Focus ring */
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--Neutral-50);
+  user-select: none;
+}
+
+select {
+  cursor: pointer;
+  appearance: none; /* Remove default arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ADB5BD'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1.2em;
+  padding-right: 40px; /* Space for custom arrow */
+}
+
+button {
+  font-family: var(--font-family);
+  background: var(--Neutral-20);
+  color: var(--Neutral-90);
+  border: 1px solid transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex; /* Changed from flex to inline-flex for better flow */
+  align-items: center;
+  justify-content: center; /* Ensure text/icon is centered */
+  gap: 8px; /* Increased gap */
+  padding: 10px 20px; /* More padding */
+  border-radius: var(--card-border-radius);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: var(--Neutral-15);
+  transform: translateY(-1px);
+}
+button:active {
+  transform: translateY(0px);
+  background-color: var(--Neutral-10);
+}
+
+button.primary {
+  background: var(--Accent-Blue-Primary);
+  color: var(--Neutral-00); /* Dark text on bright button */
+  font-weight: 600;
+}
+button.primary:hover {
+  background: var(--Accent-Blue-Hover);
+}
+button.primary:active {
+  background: var(--Accent-Blue-ActiveBG);
+}
+
+button.icon {
+  font-size: 1.3em; /* Slightly larger icon buttons */
+  padding: 10px; /* Square padding for icon-only buttons */
+}
+
+.button { /* General utility class if needed, similar to button styles */
+  background: var(--Neutral-20);
+  display: inline-flex;
+  padding: 10px 20px;
+  border-radius: var(--card-border-radius);
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  color: var(--Neutral-90);
+}
+.button:hover {
+  background-color: var(--Neutral-15);
+}
+
+.button .icon {
+  font-size: 1.3em;
+}
+
+button:focus-visible { /* Modern focus outline */
+  outline: 2px solid var(--Accent-Blue-Primary);
+  outline-offset: 2px;
+}
+
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--Neutral-30);
+  color: var(--Neutral-50);
+  transform: none;
+}
+
+button .icon {
+  display: block;
+}
+
+.icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: 300; /* Ensure icons are not too bold */
+  line-height: 1;
+  font-size: 1.25em; /* Default icon size */
+}
+
+
+.space-mono-regular {
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+/* ... other Space Mono styles ... */
+
+.hidden {
+  display: none !important;
+}
+
+.flex { display: flex; }
+.h-screen-full { height: 100vh; height: 100dvh; } /* Use dvh for mobile */
+.w-screen-full { width: 100vw; }
+.flex-col { flex-direction: column; }
+
+/* App Layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden; /* Prevent body scroll */
+}
+
+header {
+  padding: 15px 20px; /* Adjusted padding */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed; /* Keep fixed for now, can be relative for mobile scroll if main content scrolls */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* High z-index */
+  background-color: rgba(13, 17, 23, 0.8); /* Semi-transparent background */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--Neutral-15);
+}
+
+header > * {
+  pointer-events: auto;
+}
+
+/* Streaming Console & Main App Area */
+.streaming-console {
+  background: var(--Neutral-00); /* Main background */
+  color: var(--text);
+  display: flex;
+  flex-direction: column; /* For mobile, header is fixed, main content below */
+  flex-grow: 1;
+  height: 100%; /* Fill remaining space */
+  width: 100%;
+  padding-top: 70px; /* Space for fixed header, adjust based on header height */
+  overflow: hidden; /* Main console itself does not scroll, main-app-area might if needed */
+}
+
+.streaming-console main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Push content and control tray apart */
+  flex-grow: 1;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Main area itself, child might scroll if needed */
+  padding-bottom: 100px; /* Space for control tray */
+}
+
+.streaming-console .main-app-area {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Ensure content like avatar doesn't cause overflow */
+}
+
+/* Keynote Companion (Avatar Area) */
+.keynote-companion {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+.basic-face { /* Ensure canvas is responsive but not overly large */
+  max-width: 80vw;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+}
+
+
+/* Control Tray - Mobile First */
+.control-tray {
+  position: fixed; /* Fixed to bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex; /* Changed from inline-flex for full width */
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Increased gap */
+  padding: 15px 20px; /* Generous padding for touch */
+  background-color: rgba(22, 27, 34, 0.9); /* Darker, more blur for tray */
+  backdrop-filter: blur(15px);
+  border-top: 1px solid var(--Neutral-15);
+  z-index: 1000; /* Same as header */
+  transform: none; /* Remove translate for fixed positioning */
+}
+
+.control-tray .actions-nav,
+.control-tray .connection-container .connection-button-container {
+  background: transparent; /* Remove individual backgrounds, tray has one */
+  border: none; /* Remove individual borders */
+  padding: 0; /* Remove individual padding */
+  border-radius: var(--card-border-radius); /* Consistent border radius for button groups if needed */
+}
+.control-tray .actions-nav {
+ display: flex;
+ gap: 12px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--Neutral-10); /* Slightly lighter than tray bg for visibility */
+  color: var(--Neutral-80);
+  font-size: 1.5rem; /* Larger icons for touch */
+  width: 56px; /* Larger touch target */
+  height: 56px;
+  border-radius: 50%; /* Circular buttons often look premium */
+  border: 1px solid var(--Neutral-15);
+  transition: all 0.2s ease-in-out;
+}
+.action-button:hover {
+  background: var(--Neutral-20);
+  border-color: var(--Neutral-30);
+}
+.action-button.connected { /* e.g., Play button when active */
+  background: var(--Accent-Blue-Primary);
+  color: var(--Neutral-00);
+  border-color: var(--Accent-Blue-Primary);
+}
+.action-button.connected:hover {
+  background: var(--Accent-Blue-Hover);
+}
+.mic-button { /* Specific for mic */
+  background-color: var(--Accent-Red-Error);
+  color: var(--Neutral-00);
+  border-color: var(--Accent-Red-Error);
+}
+.mic-button:hover {
+  background-color: color-mix(in srgb, var(--Accent-Red-Error) 80%, black);
+}
+.mic-button.muted { /* When mic is off */
+  background-color: var(--Neutral-10);
+  color: var(--Neutral-60);
+  border-color: var(--Neutral-15);
+}
+
+
+.control-tray .connection-container {
+  display: flex;
+  align-items: center; /* Center the play button */
+  gap: 10px;
+}
+.control-tray .connection-container .text-indicator {
+  font-size: 0.8rem;
+  color: var(--Accent-Blue-Primary);
+  user-select: none;
+  display: none; /* Hidden by default on mobile, can be shown on desktop */
+}
+.control-tray .connection-container.connected .text-indicator {
+  display: inline; /* Show when connected */
+}
+
+@media (min-width: 768px) { /* Desktop adjustments for control tray */
+  .control-tray {
+    position: absolute; /* Back to absolute for desktop if desired */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto; /* Not full width */
+    padding: 12px 18px;
+    border-radius: 27px; /* Pill shape for desktop tray */
+    background-color: var(--Neutral-5);
+    border: 1px solid var(--Neutral-15);
+  }
+  .control-tray .actions-nav,
+  .control-tray .connection-container .connection-button-container {
+     border-radius: 27px; /* Pill shape for button groups */
+     background: var(--Neutral-10);
+     padding: 8px;
+  }
+   .control-tray .connection-container .text-indicator {
+    display: inline; /* Always show text indicator on desktop */
+  }
+}
+
+
+/* Modal Styling */
+.modalShroud {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.7); /* Darker shroud */
+  backdrop-filter: blur(5px);
+  padding: 20px; /* Padding for smaller screens */
+}
+
+.modalShroud .modal {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-border-radius); /* Consistent radius */
+  padding: 30px; /* Generous padding */
+  position: relative;
+  min-width: 320px;
+  width: 90%; /* Responsive width */
+  max-width: 500px; /* Max width for user settings, agent edit might need more */
+  max-height: 90dvh; /* Max height */
+  overflow-y: auto; /* Scroll content if needed */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+@media (min-width: 600px) {
+  .modalShroud .modal {
+    padding: 40px;
+  }
+}
+
+.modalShroud .modal h2 {
+  margin-bottom: 25px; /* More space below title */
+  font-size: 1.75rem; /* Larger modal title */
+  text-align: center;
+}
+
+.modalClose {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: var(--Neutral-60);
+  font-size: 1.8rem; /* Larger close icon */
+  background: none;
+  border: none;
+  padding: 5px;
+  line-height: 1;
+}
+.modalClose:hover {
+  color: var(--text);
+  background-color: var(--Neutral-20); /* Subtle hover for close button */
+}
+
+/* UserSettings & AgentEdit Specifics */
+.userSettings, .editAgent > div:first-child /* Form container in AgentEdit */ {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* More spacing between form elements */
+}
+
+.userSettings p, .userSettings small, .editAgent p, .editAgent small {
+  color: var(--Neutral-60);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.userSettings p:first-of-type { /* Introductory paragraph */
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--text);
+}
+.mandatory-asterisk {
+  color: var(--Accent-Red-Error);
+  margin-left: 2px;
+}
+.error-message { /* For form validation messages */
+  color: var(--Accent-Red-Error);
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+
+.userSettingsButton { /* In Header */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--Neutral-60);
+  transition: color 0.3s;
+  font-size: 1rem; /* Consistent with button text */
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--card-border-radius);
+}
+.userSettingsButton .icon {
+  font-size: 1.5em; /* Larger tune icon */
+}
+.userSettingsButton:hover {
+  color: var(--text);
+  background-color: var(--Neutral-10);
+}
+
+/* Form elements general */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+form label {
+  font-weight: 500;
+  margin-bottom: 8px; /* Space between label and input */
+  display: block; /* Ensure label is block for margin */
+  color: var(--Neutral-80);
+}
+form > div { /* Wrapper for label + input */
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Remove default gap, control with label margin */
+}
+form button.primary {
+  margin-top: 20px; /* Space above submit button */
+  padding: 12px 25px; /* Larger submit button */
+}
+
+/* Agent Edit Preview */
+.agentPreview {
+  width: 100%;
+  max-width: 220px; /* Slightly smaller preview */
+  height: 220px;
+  background: var(--Neutral-00); /* Match app background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--card-border-radius);
+  pointer-events: none;
+  position: relative;
+  border: 1px solid var(--Neutral-15);
+  margin: 0 auto 20px auto; /* Center preview */
+}
+.agentPreview .agent { /* Canvas itself */
+  position: static;
+  left: unset;
+  top: unset;
+  translate: 0 0 !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+.editAgent > div:nth-child(2) { /* Container for preview, color picker, voice picker */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+.colorPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.colorPicker li {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent; /* For active state */
+}
+.colorPicker li:hover {
+  transform: scale(1.1);
+}
+.colorPicker li.active {
+  border-color: var(--Accent-Blue-Primary);
+  box-shadow: 0 0 0 3px var(--Accent-Blue-Primary);
+  transform: scale(1.1);
+}
+.colorPicker li button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2); /* Subtle border on color chip */
+}
+.voicePicker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.voicePicker label {
+  margin-bottom: 0; /* Align with select */
+}
+
+
+/* Agent List Dropdown in Header */
+.roomInfo {
+  position: relative;
+}
+.roomInfo h1 { /* Current Agent Name */
+  font-size: 1.5rem; /* Slightly smaller for header */
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  opacity: 1; /* Always visible */
+  transition: color 0.2s;
+  gap: 5px;
+}
+.roomInfo h1 .icon { /* Dropdown arrow */
+  font-size: 1.8em; /* Larger arrow */
+  transition: transform 0.2s ease;
+}
+.roomInfo h1.active .icon {
+  transform: rotate(180deg);
+}
+.roomInfo .roomName { /* Container for agent name button and edit button */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.roomInfo .createButton { /* Edit ChatterBot button */
+  opacity: 1; /* Always visible */
+  background-color: var(--Neutral-10);
+  color: var(--Neutral-80);
+  padding: 8px 15px;
+  font-size: 0.9rem;
+}
+.roomInfo .createButton:hover {
+  background-color: var(--Neutral-20);
+  color: var(--text);
+}
+.roomList { /* The dropdown itself */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: calc(100% + 10px); /* Position below header */
+  left: 0;
+  background: var(--Neutral-5); /* Slightly darker than modals */
+  border: 1px solid var(--Neutral-15);
+  padding: 15px;
+  border-radius: var(--card-border-radius);
+  width: 300px; /* Fixed width for now */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
+  max-height: 70dvh;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 1001; /* Above header backdrop */
+}
+.roomList.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.roomList h3 {
+  font-size: 0.9rem; /* Smaller heading in dropdown */
+  margin-bottom: 8px;
+  color: var(--Neutral-50);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.roomList ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Tighter spacing for list items */
+  border-bottom: 1px solid var(--Neutral-15);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+.roomList ul:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.roomList li {
+  font-size: 1rem;
+}
+.roomList li button { /* Agent names in dropdown */
+  color: var(--Neutral-60);
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: flex-start; /* Align text to left */
+  padding: 10px 12px; /* Consistent padding */
+  background: none;
+  border: none;
+  font-weight: normal;
+}
+.roomList li:hover button,
+.roomList li button:focus-visible {
+  color: var(--text);
+  background-color: var(--Neutral-10); /* Hover effect */
+}
+.roomList li.active button {
+  color: var(--Accent-Blue-Primary);
+  font-weight: 600;
+  background-color: color-mix(in srgb, var(--Accent-Blue-Primary) 15%, transparent);
+}
+.roomList .newRoomButton { /* '+ New ChatterBot' button */
+  margin-top: 10px;
+  background-color: var(--Accent-Blue-Primary);
+  color: var(--Neutral-00);
+  font-weight: 500;
+}
+.roomList .newRoomButton:hover {
+  background-color: var(--Accent-Blue-Hover);
+}
+
+
+/* Error Screen */
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  width: 100%;
+  background: var(--Neutral-00); /* Match app background */
+  color: var(--text);
+  gap: 30px; /* Adjusted gap */
+  padding: 20px;
+  text-align: center;
+  position: fixed; /* Ensure it covers everything */
+  top: 0;
+  left: 0;
+  z-index: 99999; /* Highest z-index */
+}
+.error-screen .error-message-container {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  opacity: 0.8;
+  max-width: 600px;
+}
+.error-screen .error-raw-message-container {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  opacity: 0.6;
+  max-width: 600px;
+  word-break: break-all;
+  background-color: var(--Neutral-5);
+  padding: 10px;
+  border-radius: var(--card-border-radius);
+}
+.error-screen .close-button {
+  background-color: var(--Accent-Blue-Primary);
+  color: var(--Neutral-00);
+  padding: 10px 25px;
+}
+
+
+/* Brandmark & Feedback */
+.brandmark-feedback-container {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  z-index: 950; /* Below header/tray but above general content */
+  font-family: var(--font-family);
+  font-size: 0.75rem; /* ~12px */
+  color: var(--Neutral-50);
+  user-select: none;
+}
+.brandmark-feedback-container a {
+  color: var(--Accent-Blue-Primary);
+  text-decoration: none;
+  font-weight: 500; /* Changed from bold to 500 */
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.brandmark-feedback-container a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+.feedback-link {
+  /* Inherits styles from .brandmark-feedback-container a */
+}
+
+/* Hide original brandmark if it's still in App.tsx temporarily */
+.brandmark { 
+  /* display: none; This might be too broad if "brandmark" class is reused.
+     Instead, the new container is .brandmark-feedback-container */
+}
+/* If .brandmark is the specific old one: */
+div.App > .brandmark {
+    display: none; /* Hides only the direct child .brandmark of .App */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  header { /* Main app header */
+    padding: 10px 15px;
+  }
+  .roomInfo h1 {
+    font-size: 1.25rem;
+  }
+  .roomInfo .createButton {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  .userSettingsButton {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  .userSettingsButton .icon {
+    font-size: 1.3em;
+  }
+  .roomList {
+    width: calc(100vw - 30px); /* Almost full width on mobile */
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 5px);
+  }
+  .modalShroud .modal {
+    padding: 20px;
+  }
+  .modalShroud .modal h2 {
+    font-size: 1.5rem;
+  }
+  .action-button {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+  .control-tray {
+    padding: 10px 15px;
+    gap: 10px;
+  }
+}
+
+/* Textarea specific for menu description */
+textarea#agent-menu-description {
+  min-height: 200px; /* Ensure enough space for detailed input */
+  font-family: 'Space Mono', monospace; /* Good for code-like or structured text */
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+textarea#user-interests, textarea#user-info {
+   min-height: 80px;
+}
+
+/* LANDING PAGE STYLES */
+.landing-page {
+  background-color: var(--Neutral-00);
+  color: var(--Neutral-80);
+  overflow-x: hidden;
+  font-family: 'Google Sans Display', sans-serif;
+}
+
+.lp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--Neutral-15);
+}
+
+.lp-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--Neutral-90);
+  display: flex;
+  align-items: center;
+}
+
+.lp-header-launch-button {
+  font-size: 0.9rem;
+  padding: 8px 18px !important;
+}
+
+
+.lp-section {
+  padding: 80px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0; /* For scroll animation */
+  transform: translateY(20px); /* For scroll animation */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.lp-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lp-section h2 {
+  font-size: 2.5rem;
+  color: var(--Accent-Blue-Primary);
+  margin-bottom: 40px;
+}
+@media (max-width: 768px) {
+  .lp-section h2 {
+    font-size: 2rem;
+  }
+}
+
+.lp-hero {
+  min-height: calc(100vh - 80px); /* Adjust based on lp-header height */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 120px; /* Space for fixed header */
+  text-align: left;
+  background: 
+    radial-gradient(ellipse at 70% 30%, rgba(88, 166, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 70%, rgba(0, 188, 212, 0.1) 0%, transparent 50%);
+}
+
+.lp-hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.lp-headline {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--Neutral-90);
+  margin-bottom: 20px;
+}
+
+.lp-subheadline {
+  font-size: 1.25rem;
+  color: var(--Neutral-60);
+  margin-bottom: 30px;
+  max-width: 550px;
+}
+
+.lp-button.primary.lp-cta-button {
+  font-size: 1.2rem;
+  padding: 15px 30px !important;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+}
+.lp-button.primary.lp-cta-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(88, 166, 255, 0.4);
+}
+
+
+.lp-hero-avatar {
+  flex-shrink: 0;
+  /* BasicFace component itself is a canvas, styling here is for container */
+}
+.lp-hero-avatar .basic-face {
+  width: 360px !important; /* Override inline style for landing page */
+  height: 360px !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+.lp-why-columns {
+  display: flex;
+  gap: 40px;
+  text-align: left;
+}
+.lp-why-column {
+  flex: 1;
+  background-color: var(--Neutral-5);
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  border: 1px solid var(--Neutral-15);
+}
+.lp-why-column h3 {
+  font-size: 1.5rem;
+  color: var(--Neutral-90);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lp-why-column h3 .icon { color: var(--Accent-Yellow-Warning); font-size: 1.5em;}
+.lp-why-column:last-child h3 .icon { color: var(--Accent-Green-Success); }
+
+.lp-why-column ul {
+  list-style: none;
+  padding: 0;
+}
+.lp-why-column li {
+  margin-bottom: 15px;
+  color: var(--Neutral-60);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lp-why-column li .icon {
+  font-size: 1.4em;
+  color: var(--Accent-Blue-Primary);
+}
+
+
+.lp-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+.lp-feature-card {
+  background-color: var(--Neutral-10);
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  text-align: center;
+  border: 1px solid var(--Neutral-15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0; /* For scroll animation */
+  transform: translateY(20px); /* For scroll animation */
+  transition-delay: calc(0.1s * var(--card-index, 0)); /* Stagger animation */
+}
+.lp-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.lp-feature-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lp-feature-icon {
+  font-size: 3em !important; /* Material Symbols specific */
+  color: var(--Accent-Blue-Primary);
+  margin-bottom: 20px;
+  display: block;
+}
+.lp-feature-card h3 {
+  font-size: 1.4rem;
+  color: var(--Neutral-90);
+  margin-bottom: 10px;
+}
+.lp-feature-card p {
+  color: var(--Neutral-60);
+  font-size: 0.95rem;
+}
+
+
+.lp-benefits-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  text-align: left;
+  list-style: none;
+  padding: 0;
+}
+.lp-benefit-item {
+  color: var(--Neutral-80);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--Neutral-5);
+  padding: 20px;
+  border-radius: var(--card-border-radius);
+  border-left: 4px solid var(--Accent-Green-Success);
+  opacity: 0; /* For scroll animation */
+  transform: translateY(20px); /* For scroll animation */
+  transition-delay: calc(0.1s * var(--item-index, 0)); /* Stagger animation */
+}
+.lp-benefit-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lp-benefit-item .icon {
+  color: var(--Accent-Green-Success);
+  font-size: 1.6em;
+}
+
+.lp-steps-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-top: 30px;
+}
+.lp-step {
+  flex: 1;
+  max-width: 300px;
+  background-color: var(--Neutral-10);
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  border: 1px solid var(--Neutral-15);
+  opacity: 0; /* For scroll animation */
+  transform: translateY(20px); /* For scroll animation */
+  transition-delay: calc(0.15s * var(--step-index, 0)); /* Stagger animation */
+}
+.lp-step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lp-step-icon-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: var(--Accent-Blue-Primary);
+  color: var(--Neutral-00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+}
+.lp-step-icon {
+  font-size: 2.5em !important;
+}
+.lp-step h3 {
+  font-size: 1.3rem;
+  color: var(--Neutral-90);
+  margin-bottom: 10px;
+}
+.lp-step p {
+  color: var(--Neutral-60);
+  font-size: 0.9rem;
+}
+
+
+.lp-final-cta {
+  background-color: var(--Neutral-5);
+  border-radius: var(--card-border-radius);
+  padding: 60px 40px;
+}
+.lp-final-cta p {
+  font-size: 1.1rem;
+  color: var(--Neutral-60);
+  max-width: 700px;
+  margin: 0 auto 30px auto;
+}
+
+.lp-footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid var(--Neutral-15);
+  color: var(--Neutral-50);
+  font-size: 0.9rem;
+}
+.lp-footer-brandmark {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+.lp-footer-brandmark a {
+  color: var(--Accent-Blue-Primary);
+  text-decoration: none;
+}
+.lp-footer-brandmark a:hover {
+  text-decoration: underline;
+}
+
+
+/* Landing Page Responsive */
+@media (max-width: 992px) {
+  .lp-hero {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 100px; /* Adjust for header */
+  }
+  .lp-hero-content {
+    max-width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .lp-hero-avatar {
+    margin-top: 30px;
+    order: -1; /* Avatar on top on mobile */
+  }
+   .lp-hero-avatar .basic-face {
+    width: 280px !important;
+    height: 280px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .lp-header {
+    padding: 15px 20px;
+  }
+  .lp-logo {
+    font-size: 1.5rem;
+  }
+  .lp-header-launch-button {
+    font-size: 0.8rem;
+    padding: 6px 14px !important;
+  }
+  .lp-section {
+    padding: 60px 20px;
+  }
+  .lp-headline {
+    font-size: 2.5rem;
+  }
+  .lp-subheadline {
+    font-size: 1.1rem;
+  }
+  .lp-hero-avatar .basic-face {
+    width: 220px !important;
+    height: 220px !important;
+  }
+  .lp-why-columns {
+    flex-direction: column;
+  }
+  .lp-steps-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .lp-step {
+    width: 100%;
+    max-width: 350px; /* Ensure steps don't get too wide on mobile */
+  }
+}
