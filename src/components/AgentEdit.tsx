@@ -9,10 +9,10 @@ import {
   AGENT_COLORS,
   INTERLOCUTOR_VOICE,
   INTERLOCUTOR_VOICES,
-} from '@/lib/presets/agents';
-import Modal from './Modal';
+} from '../../lib/presets/agents';
+import Modal from '../../components/Modal';
 import c from 'classnames';
-import { useAgent, useUI } from '@/lib/state';
+import { useAgent, useUI } from '../lib/state';
 
 export default function EditAgent() {
   const { current: agent, updateAgent, loading } = useAgent();

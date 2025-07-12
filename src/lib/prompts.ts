@@ -3,7 +3,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import { Agent } from './presets/agents';
+import { Agent } from '../../lib/presets/agents';
 import { Profile } from './state';
 
 export const createSystemInstructions = (agent: Agent, userProfile: Profile | null) => {

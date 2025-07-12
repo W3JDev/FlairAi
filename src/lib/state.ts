@@ -18,7 +18,7 @@ import {
   MyanmarTrainerAgent,
   BengaliTrainerAgent,
   createNewAgent
-} from './presets/agents';
+} from '../../lib/presets/agents';
 
 // Database types
 export type Profile = {

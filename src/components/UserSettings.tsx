@@ -3,7 +3,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import Modal from './Modal';
+import Modal from '../../components/Modal';
 import { useUI, useUser } from '../lib/state';
 import type { Profile } from '../lib/state';
 import { useState, useEffect, FormEvent } from 'react';
