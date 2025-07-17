@@ -41,7 +41,7 @@ export type Flarebot = {
   personality: string;
   body_color: string;
   voice: Agent['voice'];
-  knowledge_base: string;
+  menu_description: string;
 };
 
 
@@ -95,7 +95,7 @@ export const useUser = create<UserState>((set, get) => ({
         .eq('id', profile.id)
         .select()
         .single();
-      
+
       if (error) throw error;
 
       if (data) {
@@ -155,14 +155,14 @@ export const useAgent = create<AgentState>((set, get) => ({
         .eq('user_id', userId);
 
       if (error) throw error;
-      
+
       const personalAgents: Agent[] = data.map(dbAgent => ({
         id: dbAgent.id,
         name: dbAgent.name,
         personality: dbAgent.personality || '',
         bodyColor: dbAgent.body_color || '#58A6FF',
         voice: dbAgent.voice,
-        knowledgeBase: dbAgent.knowledge_base || '',
+        menuDescription: dbAgent.menu_description || '',
       }));
 
       set({ availablePersonal: personalAgents });
@@ -190,7 +190,7 @@ export const useAgent = create<AgentState>((set, get) => ({
     set({ loading: true });
 
     const newAgent = createNewAgent(agentData);
-    
+
     try {
       const { data, error } = await supabase
         .from('flarebots')
@@ -201,13 +201,13 @@ export const useAgent = create<AgentState>((set, get) => ({
           personality: newAgent.personality,
           body_color: newAgent.bodyColor,
           voice: newAgent.voice,
-          knowledge_base: newAgent.knowledgeBase,
+          menu_description: newAgent.menuDescription,
         })
         .select()
         .single();
-      
+
       if (error) throw error;
-      
+
       if (data) {
         const addedAgent: Agent = {
           id: data.id,
@@ -215,7 +215,7 @@ export const useAgent = create<AgentState>((set, get) => ({
           personality: data.personality || '',
           bodyColor: data.body_color || '#58A6FF',
           voice: data.voice,
-          knowledgeBase: data.knowledge_base || '',
+          menuDescription: data.menu_description || '',
         };
         set(state => ({
           availablePersonal: [...state.availablePersonal, addedAgent],
@@ -250,7 +250,7 @@ export const useAgent = create<AgentState>((set, get) => ({
         personality: adjustments.personality,
         body_color: adjustments.bodyColor,
         voice: adjustments.voice,
-        knowledge_base: adjustments.knowledgeBase,
+        menu_description: adjustments.menuDescription,
       };
 
       const { data, error } = await supabase
@@ -269,7 +269,7 @@ export const useAgent = create<AgentState>((set, get) => ({
           personality: data.personality || '',
           bodyColor: data.body_color || '#58A6FF',
           voice: data.voice,
-          knowledgeBase: data.knowledge_base || '',
+          menuDescription: data.menu_description || '',
         };
 
         set(state => ({
