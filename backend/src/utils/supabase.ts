@@ -6,19 +6,19 @@
 import { createClient } from '@supabase/supabase-js';
 import { logger } from './logger.js';
 
-// Validate environment variables
-if (!process.env.SUPABASE_URL) {
-  throw new Error('SUPABASE_URL environment variable is required');
-}
+// Use demo values for development if environment variables are not set
+const supabaseUrl = process.env.SUPABASE_URL || 'https://demo.supabase.co';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'demo-service-role-key';
 
-if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error('SUPABASE_SERVICE_ROLE_KEY environment variable is required');
+// Log warning in development if using demo values
+if (process.env.NODE_ENV === 'development' && (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY)) {
+  logger.warn('Using demo Supabase configuration for development. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY for production.');
 }
 
 // Create Supabase client with service role key for backend operations
 export const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  supabaseUrl,
+  supabaseServiceKey,
   {
     auth: {
       autoRefreshToken: false,
@@ -30,7 +30,7 @@ export const supabase = createClient(
 // Test connection on startup
 export const testSupabaseConnection = async (): Promise<boolean> => {
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('profiles')
       .select('count', { count: 'exact', head: true });
     
