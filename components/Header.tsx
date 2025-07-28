@@ -3,9 +3,9 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import { useLiveAPIContext } from '@/contexts/LiveAPIContext';
-import { Agent, createNewAgent } from '@/lib/presets/agents';
-import { useAgent, useUI, useUser } from '@/lib/state';
+import { useLiveAPIContext } from '../src/contexts/LiveAPIContext';
+import { Agent, createNewAgent } from '../lib/presets/agents';
+import { useAgent, useUI, useUser } from '../src/lib/state';
 import c from 'classnames';
 import { useEffect, useState } from 'react';
 

@@ -23,6 +23,7 @@ export type Agent = {
   bodyColor: string;
   voice: INTERLOCUTOR_VOICE;
   knowledgeBase: string;
+  menuDescription?: string;
 };
 
 export const AGENT_COLORS = [

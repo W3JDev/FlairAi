@@ -5,7 +5,7 @@
 import { useLiveAPIContext } from '@/contexts/LiveAPIContext';
 import { LiveClientEventTypes } from '@/lib/genai-live-client';
 import EventEmitter from 'eventemitter3';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface ExtendedErrorType {
   code?: number;

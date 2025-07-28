@@ -10,28 +10,6 @@
  * and provides helpful error messages if any are missing or invalid.
  */
 
-// Define the shape of our environment variables with TypeScript
-interface EnvVariables {
-  // Required variables
-  VITE_GEMINI_API_KEY: string;
-  VITE_SUPABASE_URL: string;
-  VITE_SUPABASE_ANON_KEY: string;
-  
-  // Optional variables with defaults
-  VITE_APP_ENV?: 'development' | 'staging' | 'production';
-  VITE_STRICT_MODE?: boolean;
-  VITE_ENABLE_ERROR_REPORTING?: boolean;
-}
-
-// Extend ImportMeta interface to properly type import.meta.env
-declare global {
-  interface ImportMeta {
-    env: EnvVariables & {
-      [key: string]: string | boolean | undefined;
-    };
-  }
-}
-
 /**
  * Validates that a URL string is properly formatted
  * @param url The URL string to validate

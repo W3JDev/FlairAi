@@ -3,9 +3,9 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import BasicFace from '../../components/demo/basic-face/BasicFace'; // Reusing the avatar
-import { AGENT_COLORS, AuraAssist } from '../../lib/presets/agents';
+import { AuraAssist } from '../../lib/presets/agents';
 
 interface LandingPageProps {
   onLaunchApp: () => void;

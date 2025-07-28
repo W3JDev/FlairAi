@@ -36,7 +36,7 @@ const eye = (
   pos: [number, number],
   radius: number,
   scaleY: number,
-  faceRadius: number // Main face radius for relative sizing
+  _faceRadius: number // Main face radius for relative sizing
 ) => {
   ctx.save();
   ctx.translate(pos[0], pos[1]);

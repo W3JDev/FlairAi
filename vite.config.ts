@@ -6,10 +6,11 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  root: 'src-business',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src-business'),
+      '@/lib': path.resolve(__dirname, './lib'),
+      '@/components': path.resolve(__dirname, './components'),
     },
   },
 })
