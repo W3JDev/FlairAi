@@ -1,0 +1,126 @@
+version: '3.8'
+
+services:
+  # ================================
+  # FlairAi Backend API
+  # ================================
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - FRONTEND_URL=http://localhost:5173
+    env_file:
+      - .env
+    volumes:
+      - ./backend/src:/app/backend/src
+      - ./backend/logs:/app/logs
+      - ./uploads:/app/uploads
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - flaire-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ================================
+  # Frontend Development Server
+  # ================================
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    env_file:
+      - .env
+    volumes:
+      - ./src-business:/app/src-business
+      - ./components:/app/components
+      - ./lib:/app/lib
+      - ./contexts:/app/contexts
+      - ./hooks:/app/hooks
+    networks:
+      - flaire-network
+    restart: unless-stopped
+
+  # ================================
+  # PostgreSQL Database (for local development)
+  # ================================
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: flaire_ai
+      POSTGRES_USER: flaire_user
+      POSTGRES_PASSWORD: flaire_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds:/docker-entrypoint-initdb.d/seeds
+    networks:
+      - flaire-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flaire_user -d flaire_ai"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ================================
+  # Redis (for caching and sessions)
+  # ================================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - flaire-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ================================
+  # Nginx (for local SSL and routing)
+  # ================================
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/ssl:/etc/nginx/ssl
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - flaire-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  flaire-network:
+    driver: bridge
