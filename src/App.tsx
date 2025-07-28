@@ -14,7 +14,6 @@ import ErrorScreen from '../components/demo/ErrorSreen';
 import KeynoteCompanion from './components/demo/keynote-companion/KeynoteCompanion';
 import Header from '../components/Header';
 import UserSettings from './components/UserSettings';
-import LandingPage from './components/LandingPage';
 import Auth from '../components/auth/Auth';
 import { LiveAPIProvider } from './contexts/LiveAPIContext';
 

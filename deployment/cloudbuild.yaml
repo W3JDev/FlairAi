@@ -1,0 +1,158 @@
+# Google Cloud Build configuration for FlairAi
+# Builds and deploys both frontend and backend to Cloud Run
+
+steps:
+  # ================================
+  # Step 1: Install Backend Dependencies
+  # ================================
+  - name: 'node:20-alpine'
+    dir: 'backend'
+    entrypoint: 'npm'
+    args: ['ci']
+
+  # ================================
+  # Step 2: Build Backend
+  # ================================
+  - name: 'node:20-alpine'
+    dir: 'backend'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+
+  # ================================
+  # Step 3: Install Frontend Dependencies
+  # ================================
+  - name: 'node:20-alpine'
+    entrypoint: 'npm'
+    args: ['ci']
+
+  # ================================
+  # Step 4: Build Frontend
+  # ================================
+  - name: 'node:20-alpine'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+    env:
+      - 'VITE_SUPABASE_URL=$_SUPABASE_URL'
+      - 'VITE_SUPABASE_ANON_KEY=$_SUPABASE_ANON_KEY'
+      - 'VITE_GEMINI_API_KEY=$_GEMINI_API_KEY'
+
+  # ================================
+  # Step 5: Build Backend Docker Image
+  # ================================
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '-t', 'gcr.io/$PROJECT_ID/flaire-ai-backend:$COMMIT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/flaire-ai-backend:latest',
+      '-f', 'backend/Dockerfile',
+      '.'
+    ]
+
+  # ================================
+  # Step 6: Build Frontend Docker Image
+  # ================================
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '-t', 'gcr.io/$PROJECT_ID/flaire-ai-frontend:$COMMIT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/flaire-ai-frontend:latest',
+      '-f', 'deployment/Dockerfile.frontend',
+      '.'
+    ]
+
+  # ================================
+  # Step 7: Push Backend Image
+  # ================================
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/flaire-ai-backend:$COMMIT_SHA']
+
+  # ================================
+  # Step 8: Push Frontend Image
+  # ================================
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/flaire-ai-frontend:$COMMIT_SHA']
+
+  # ================================
+  # Step 9: Deploy Backend to Cloud Run
+  # ================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: [
+      'run', 'deploy', 'flaire-ai-backend',
+      '--image', 'gcr.io/$PROJECT_ID/flaire-ai-backend:$COMMIT_SHA',
+      '--region', '$_REGION',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '1Gi',
+      '--cpu', '1',
+      '--max-instances', '10',
+      '--set-env-vars', 'NODE_ENV=production',
+      '--set-secrets', 'JWT_SECRET=jwt-secret:latest',
+      '--set-secrets', 'SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest',
+      '--set-secrets', 'GEMINI_API_KEY=gemini-api-key:latest'
+    ]
+
+  # ================================
+  # Step 10: Deploy Frontend to Cloud Run
+  # ================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: [
+      'run', 'deploy', 'flaire-ai-frontend',
+      '--image', 'gcr.io/$PROJECT_ID/flaire-ai-frontend:$COMMIT_SHA',
+      '--region', '$_REGION',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '512Mi',
+      '--cpu', '1',
+      '--max-instances', '5'
+    ]
+
+  # ================================
+  # Step 11: Update Load Balancer
+  # ================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Update backend service in load balancer
+        gcloud compute backend-services update flaire-ai-backend \
+          --global \
+          --description="FlairAi Backend API"
+        
+        # Update frontend service in load balancer
+        gcloud compute backend-services update flaire-ai-frontend \
+          --global \
+          --description="FlairAi Frontend"
+
+# ================================
+# Build Configuration
+# ================================
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+  diskSizeGb: 100
+
+# ================================
+# Substitutions (Variables)
+# ================================
+substitutions:
+  _REGION: 'us-central1'
+  _SUPABASE_URL: 'https://your-project.supabase.co'
+  _SUPABASE_ANON_KEY: 'your-anon-key'
+  _GEMINI_API_KEY: 'your-gemini-key'
+
+# ================================
+# Images to Push
+# ================================
+images:
+  - 'gcr.io/$PROJECT_ID/flaire-ai-backend:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/flaire-ai-frontend:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/flaire-ai-backend:latest'
+  - 'gcr.io/$PROJECT_ID/flaire-ai-frontend:latest'
+
+# ================================
+# Timeouts
+# ================================
+timeout: '1200s'

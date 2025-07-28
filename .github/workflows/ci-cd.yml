@@ -1,0 +1,295 @@
+name: FlairAi CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '20'
+  GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  GOOGLE_CLOUD_REGION: 'us-central1'
+
+jobs:
+  # ================================
+  # Frontend Testing and Building
+  # ================================
+  frontend-test:
+    runs-on: ubuntu-latest
+    name: Frontend Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run linter
+      run: npm run lint
+
+    - name: Run tests
+      run: npm run test:ci
+      env:
+        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+
+    - name: Build frontend
+      run: npm run build
+      env:
+        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+
+    - name: Upload frontend build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-build
+        path: dist/
+
+  # ================================
+  # Backend Testing and Building
+  # ================================
+  backend-test:
+    runs-on: ubuntu-latest
+    name: Backend Tests
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Install backend dependencies
+      working-directory: backend
+      run: npm ci
+
+    - name: Run backend linter
+      working-directory: backend
+      run: npm run lint
+
+    - name: Run backend tests
+      working-directory: backend
+      run: npm run test:coverage
+      env:
+        NODE_ENV: test
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+        JWT_SECRET: test-jwt-secret-for-testing-purposes-only
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    - name: Build backend
+      working-directory: backend
+      run: npm run build
+
+    - name: Upload backend build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: backend-build
+        path: backend/dist/
+
+    - name: Upload test coverage
+      uses: codecov/codecov-action@v3
+      with:
+        file: backend/coverage/lcov.info
+        flags: backend
+        name: backend-coverage
+
+  # ================================
+  # Security Scanning
+  # ================================
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # ================================
+  # Deploy to Staging
+  # ================================
+  deploy-staging:
+    runs-on: ubuntu-latest
+    name: Deploy to Staging
+    needs: [frontend-test, backend-test, security-scan]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GOOGLE_CLOUD_SA_KEY }}
+        project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+
+    - name: Configure Docker for GCR
+      run: gcloud auth configure-docker
+
+    - name: Download frontend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: frontend-build
+        path: dist/
+
+    - name: Download backend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: backend-build
+        path: backend/dist/
+
+    - name: Build and push Docker images
+      run: |
+        # Build backend image
+        docker build -t gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:staging-${{ github.sha }} \
+          -f backend/Dockerfile .
+        docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:staging-${{ github.sha }}
+
+    - name: Deploy to Cloud Run (Staging)
+      run: |
+        gcloud run deploy flaire-ai-backend-staging \
+          --image gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:staging-${{ github.sha }} \
+          --region ${{ env.GOOGLE_CLOUD_REGION }} \
+          --platform managed \
+          --allow-unauthenticated \
+          --memory 1Gi \
+          --cpu 1 \
+          --max-instances 3 \
+          --set-env-vars NODE_ENV=staging \
+          --set-secrets JWT_SECRET=jwt-secret-staging:latest \
+          --set-secrets SUPABASE_SERVICE_ROLE_KEY=supabase-service-key-staging:latest
+
+  # ================================
+  # Deploy to Production
+  # ================================
+  deploy-production:
+    runs-on: ubuntu-latest
+    name: Deploy to Production
+    needs: [frontend-test, backend-test, security-scan]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GOOGLE_CLOUD_SA_KEY }}
+        project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+
+    - name: Configure Docker for GCR
+      run: gcloud auth configure-docker
+
+    - name: Download frontend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: frontend-build
+        path: dist/
+
+    - name: Download backend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: backend-build
+        path: backend/dist/
+
+    - name: Build and push Docker images
+      run: |
+        # Build backend image
+        docker build -t gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:${{ github.sha }} \
+          -t gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:latest \
+          -f backend/Dockerfile .
+        
+        docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:${{ github.sha }}
+        docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:latest
+
+    - name: Deploy to Cloud Run (Production)
+      run: |
+        gcloud run deploy flaire-ai-backend \
+          --image gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/flaire-ai-backend:${{ github.sha }} \
+          --region ${{ env.GOOGLE_CLOUD_REGION }} \
+          --platform managed \
+          --allow-unauthenticated \
+          --memory 1Gi \
+          --cpu 1 \
+          --max-instances 10 \
+          --set-env-vars NODE_ENV=production \
+          --set-secrets JWT_SECRET=jwt-secret:latest \
+          --set-secrets SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest \
+          --set-secrets GEMINI_API_KEY=gemini-api-key:latest
+
+    - name: Run database migrations
+      run: |
+        gcloud run jobs execute migrate-database \
+          --region ${{ env.GOOGLE_CLOUD_REGION }} \
+          --wait
+
+  # ================================
+  # Notify Deployment Status
+  # ================================
+  notify:
+    runs-on: ubuntu-latest
+    name: Notify Deployment
+    needs: [deploy-staging, deploy-production]
+    if: always()
+
+    steps:
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        text: |
+          FlairAi deployment completed!
+          Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Staging' }}
+          Status: ${{ job.status }}
+          Commit: ${{ github.sha }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()

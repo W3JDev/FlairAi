@@ -16,9 +16,9 @@ import {
   Session,
 } from '@google/genai';
 import EventEmitter from 'eventemitter3';
-import { DEFAULT_LIVE_API_MODEL } from './constants';
+import { DEFAULT_LIVE_API_MODEL } from '../../lib/constants';
 import { difference } from 'lodash';
-import { base64ToArrayBuffer } from './utils';
+import { base64ToArrayBuffer } from '../../lib/utils';
 
 /**
  * Represents a single log entry in the system.

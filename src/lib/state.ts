@@ -52,6 +52,7 @@ type UserState = {
   profile: Profile | null;
   loading: boolean;
   profileComplete: boolean;
+  name: string | undefined;
   initializeUser: (user: AuthUser) => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<void>;
   signOut: () => Promise<void>;
@@ -61,6 +62,7 @@ export const useUser = create<UserState>((set, get) => ({
   profile: null,
   loading: true,
   profileComplete: false,
+  name: undefined,
   initializeUser: async (user: AuthUser) => {
     set({ loading: true });
     try {
@@ -75,7 +77,11 @@ export const useUser = create<UserState>((set, get) => ({
       }
 
       if (data) {
-        set({ profile: data, profileComplete: !!(data.name && data.gender) });
+        set({ 
+          profile: data, 
+          profileComplete: !!(data.name && data.gender),
+          name: data.name 
+        });
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -99,7 +105,11 @@ export const useUser = create<UserState>((set, get) => ({
       if (error) throw error;
 
       if (data) {
-        set({ profile: data, profileComplete: !!(data.name && data.gender) });
+        set({ 
+          profile: data, 
+          profileComplete: !!(data.name && data.gender),
+          name: data.name 
+        });
       }
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -109,7 +119,7 @@ export const useUser = create<UserState>((set, get) => ({
   },
   signOut: async () => {
     await supabase.auth.signOut();
-    set({ profile: null, profileComplete: false });
+    set({ profile: null, profileComplete: false, name: undefined });
     // Reset other stores if necessary
     useAgent.getState().reset();
   },

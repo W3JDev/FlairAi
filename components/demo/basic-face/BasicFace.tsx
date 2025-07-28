@@ -127,7 +127,7 @@ export default function BasicFace({
   return (
     <canvas
       className="basic-face"
-      ref={canvasRef}
+      ref={canvasRef as React.LegacyRef<HTMLCanvasElement>}
       // Initial width/height, will be adjusted in useEffect
       width={radius * 2 * scale}
       height={radius * 2 * scale}
