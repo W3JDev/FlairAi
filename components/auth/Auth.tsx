@@ -75,11 +75,11 @@ const Auth: React.FC = () => {
             {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
-        
+
         {message && <p className="message">{message}</p>}
-        
+
         <div className="demo-section">
-          <button 
+          <button
             type="button"
             className="demo-button"
             onClick={async () => {
@@ -110,11 +110,11 @@ const Auth: React.FC = () => {
           </button>
           <p className="demo-note">Experience FlairAi with our demo account</p>
         </div>
-        
+
         <p>
           {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="link-button"
             onClick={() => setIsSignUp(!isSignUp)}
           >
