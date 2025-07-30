@@ -103,7 +103,7 @@ disabled = { isLoading }
     </select>
 { isLoading && <span>Updating voice...</span> }
 </div>
-  );
+    );
 }
 
 // Example 5: Zustand store following FlairAi patterns
