@@ -3,15 +3,15 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import { useLiveAPIContext } from '../src/contexts/LiveAPIContext';
+import { useLiveAPIContext } from '../src-business/contexts/LiveAPIContext';
 import { Agent, createNewAgent } from '../lib/presets/agents';
-import { useAgent, useUI, useUser } from '../src/lib/state';
+import { useAgent, useUI, useUser } from '../src-business/lib/state';
 import c from 'classnames';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
   const { showUserConfig, setShowUserConfig, setShowAgentEdit } = useUI();
-  const { name } = useUser();
+  const { profile } = useUser();
   const { current, setCurrent, availablePresets, availablePersonal, addAgent } =
     useAgent();
   const { disconnect } = useLiveAPIContext();
@@ -107,7 +107,7 @@ export default function Header() {
         className="userSettingsButton"
         onClick={() => setShowUserConfig(!showUserConfig)}
       >
-        {name || 'Your name'}
+        {profile?.name || profile?.username || 'Your name'}
         <span className="icon">tune</span>
       </button>
     </header>

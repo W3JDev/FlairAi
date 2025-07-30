@@ -60,7 +60,7 @@ export const authMiddleware = async (
     req.user = {
       id: decoded.userId,
       email: decoded.email,
-      tenantId: decoded.tenantId
+      tenantId: decoded.tenantId || undefined
     };
 
     // Extract tenant ID from headers if provided

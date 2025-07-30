@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { supabase } from '../utils/supabase.js';
 import { logger } from '../utils/logger.js';
@@ -37,14 +36,7 @@ const refreshTokenSchema = z.object({
 router.post('/signup', asyncHandler(async (req, res) => {
   const { email, password, username, name } = signUpSchema.parse(req.body);
 
-  // Check if user already exists
-  const { data: existingUser } = await supabase.auth.admin.getUserByEmail(email);
-  
-  if (existingUser.user) {
-    return res.status(409).json({ error: 'User with this email already exists' });
-  }
-
-  // Create user in Supabase Auth
+  // Create user in Supabase Auth (Supabase will handle duplicate email check)
   const { data: authData, error: authError } = await supabase.auth.admin.createUser({
     email,
     password,

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Landing Page Navigation</title>
+</head>
+<body>
+    <h1>Test FlairAi Navigation</h1>
+    <button onclick="testNavigation()">Test Get Started Button</button>
+    
+    <script>
+        function testNavigation() {
+            console.log('Testing navigation...');
+            alert('Navigation test - this should work if JavaScript is enabled');
+        }
+        
+        // Test if we can reach the main app
+        fetch('http://localhost:5174/')
+            .then(response => response.text())
+            .then(html => {
+                console.log('App is loading:', html.length > 0);
+                document.body.innerHTML += '<p>✅ App is reachable and loading</p>';
+            })
+            .catch(error => {
+                console.error('App not reachable:', error);
+                document.body.innerHTML += '<p>❌ App not reachable</p>';
+            });
+    </script>
+</body>
+</html>

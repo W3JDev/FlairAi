@@ -1,0 +1,108 @@
+Supabase Project Context for FlairAi
+========================================
+
+PROJECT OVERVIEW:
+- Database: PostgreSQL 15 on Supabase ✅ TABLES CREATED
+- Authentication: Supabase Auth with JWT tokens
+- Project URL: https://xqimguxtplonwwafukwj.supabase.co
+- Schemas: public, auth, storage
+- Framework: React 19 + TypeScript + Vite
+- Deployment: GitHub → Vercel → Supabase integration
+
+CORE ARCHITECTURE:
+- Frontend: React TypeScript with Vite bundler
+- Backend: Supabase (PostgreSQL + Auth + Storage + Edge Functions)
+- AI Integration: Google Gemini Live API for voice conversations
+- State Management: Zustand for client-side state
+- Styling: CSS modules with custom properties
+
+KEY TABLES AND RELATIONSHIPS: ✅ CREATED IN PRODUCTION
+* profiles (user metadata extending auth.users)
+  - id: UUID PRIMARY KEY references auth.users(id) ✅
+  - email, username, name, avatar_url
+  - gender, role (trainee, trainer, manager, etc.)
+  - settings: JSONB for flexible configuration ✅
+  - tenant_id for multi-tenant support
+
+* flarebots (AI assistant configurations) ✅
+  - id: UUID PRIMARY KEY ✅
+  - user_id: UUID references profiles(id) ✅
+  - name, personality, knowledge_base ✅
+  - body_color, voice (Charon, Aoede, Fenrir, etc.) ✅
+  - is_active, is_public, usage_count
+  - settings: JSONB for AI parameters
+
+* training_sessions (conversation tracking)
+  - id: UUID PRIMARY KEY
+  - user_id, flarebot_id (foreign keys)
+  - session_name, scenario_type, status
+  - duration_seconds, score, feedback
+  - transcript: JSONB array of conversation turns
+
+* knowledge_bases (shared training content)
+  - id: UUID PRIMARY KEY
+  - name, description, content (TEXT)
+  - category, tags: TEXT[]
+  - is_public, created_by, usage_count
+
+DATABASE DESIGN PRINCIPLES:
+- Use UUID for all primary keys (gen_random_uuid())
+- Implement Row Level Security (RLS) on all tables
+- Prefer JSONB for flexible settings and metadata
+- Use timestamptz for all datetime fields
+- Follow multi-tenant architecture patterns
+- Enable CASCADE deletes for data cleanup
+
+ROW LEVEL SECURITY PATTERNS:
+- Users can only access their own data: auth.uid() = user_id
+- Public data accessible with is_public = true
+- Tenant isolation where applicable: tenant_id matching
+
+SUPABASE CLIENT PATTERNS:
+- Use createClient with anon key for frontend
+- Use service role key for admin operations
+- Implement proper error handling for missing tables
+- Handle auth state changes with onAuthStateChange
+- Use select(), insert(), update(), delete() methods
+- Implement real-time subscriptions for live updates
+
+AI VOICE INTEGRATION:
+- Google Gemini Live API for real-time voice conversations
+- Voice types: Charon, Aoede, Fenrir, Kore, Leda, Orus, Puck, Zephyr
+- LiveAPIContext provides volume, connection state
+- BasicFace component for animated avatar responses
+- Audio recording and streaming capabilities
+
+COMMON PATTERNS:
+- Error handling: Check for error.code === '42P01' (missing table)
+- Graceful degradation when database tables don't exist
+- Profile completion checks: !!(data.name && data.gender)
+- Agent state management with presets vs personal agents
+- Real-time audio volume processing for mouth animations
+
+DEVELOPMENT WORKFLOW:
+- Local development with Vite dev server
+- Hot module replacement for rapid iteration
+- TypeScript strict mode enabled
+- ESLint + Prettier for code quality
+- Supabase CLI for schema management
+
+ENVIRONMENT VARIABLES:
+- VITE_SUPABASE_URL: Public Supabase project URL
+- VITE_SUPABASE_ANON_KEY: Public anon key for client
+- SUPABASE_SERVICE_ROLE_KEY: Admin key for server operations
+- VITE_GEMINI_API_KEY: Google AI API key for voice features
+
+BUSINESS LOGIC:
+- Multi-role user system (trainee, trainer, manager, admin)
+- FlareBot creation and customization
+- Voice training scenarios and feedback
+- Performance metrics and analytics tracking
+- Knowledge base sharing and management
+
+SECURITY CONSIDERATIONS:
+- RLS policies enforce user data isolation
+- JWT tokens for authentication
+- API keys stored in environment variables
+- CORS properly configured for frontend
+- Input validation on all user-generated content

@@ -9,9 +9,10 @@ import { AGENT_COLORS, AuraAssist } from '../../lib/presets/agents';
 
 interface BusinessLandingPageProps {
   onLaunchApp: () => void;
+  onTestMode?: () => void;
 }
 
-const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp }) => {
+const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, onTestMode }) => {
   const faceCanvasRef = useRef<HTMLCanvasElement>(null);
   // const [avatarColor] = useState(AGENT_COLORS[0]); // Using AuraAssist's color directly
 
@@ -40,9 +41,33 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp }
         <div className="lp-logo">
           <span role="img" aria-label="Flare Sparkle" style={{fontSize: '1.5em', marginRight: '8px'}}>🚀</span> FlareAI for Business
         </div>
-        <button onClick={onLaunchApp} className="lp-button primary lp-header-launch-button">
-          Launch App
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {onTestMode && (
+            <button 
+              onClick={() => {
+                console.log('Test Mode button clicked in BusinessLandingPage!');
+                onTestMode();
+              }} 
+              className="lp-button secondary"
+              style={{ 
+                background: '#28a745',
+                color: 'white',
+                border: 'none',
+                padding: '0.5rem 1rem',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Test Mode
+            </button>
+          )}
+          <button onClick={() => {
+            console.log('Launch App button clicked in BusinessLandingPage!');
+            onLaunchApp();
+          }} className="lp-button primary lp-header-launch-button">
+            Launch App
+          </button>
+        </div>
       </header>
 
       {/* Hero Section */}
@@ -53,7 +78,10 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp }
             Create and train AI agents to automate customer support, sales, and onboarding.
             Boost efficiency, reduce costs, and increase revenue with customizable AI agents.
           </p>
-          <button onClick={onLaunchApp} className="lp-button primary lp-cta-button">
+          <button onClick={() => {
+            console.log('Get Started Now button clicked in BusinessLandingPage!');
+            onLaunchApp();
+          }} className="lp-button primary lp-cta-button">
             Get Started Now <span className="icon" style={{marginLeft: '8px'}}>arrow_forward</span>
           </button>
         </div>

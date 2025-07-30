@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import React, { useState } from 'react';
-import { supabase } from '../../src/lib/supabaseClient';
+import { supabase } from '../../src-business/lib/supabaseClient';
 import './Auth.css';
 
 const Auth: React.FC = () => {
@@ -23,6 +23,9 @@ const Auth: React.FC = () => {
         const { error } = await supabase.auth.signUp({
           email,
           password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/`
+          }
         });
         if (error) throw error;
         setMessage('Check your email for confirmation link');
@@ -32,6 +35,7 @@ const Auth: React.FC = () => {
           password,
         });
         if (error) throw error;
+        // No manual redirect needed - App.tsx handles auth state
       }
     } catch (error: any) {
       setMessage(error.message);
@@ -73,6 +77,39 @@ const Auth: React.FC = () => {
         </form>
         
         {message && <p className="message">{message}</p>}
+        
+        <div className="demo-section">
+          <button 
+            type="button"
+            className="demo-button"
+            onClick={async () => {
+              setLoading(true);
+              try {
+                // Use demo credentials
+                const { error } = await supabase.auth.signInWithPassword({
+                  email: 'demo@flairai.com',
+                  password: 'demo123'
+                });
+                if (error) {
+                  // If demo user doesn't exist, create it
+                  const { error: signUpError } = await supabase.auth.signUp({
+                    email: 'demo@flairai.com',
+                    password: 'demo123'
+                  });
+                  if (signUpError) throw signUpError;
+                  setMessage('Demo user created! Please check demo@flairai.com for confirmation or try signing in again.');
+                }
+              } catch (error: any) {
+                setMessage(error.message);
+              }
+              setLoading(false);
+            }}
+            disabled={loading}
+          >
+            Try Demo Mode
+          </button>
+          <p className="demo-note">Experience FlairAi with our demo account</p>
+        </div>
         
         <p>
           {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}

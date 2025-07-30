@@ -71,6 +71,12 @@ export const useUser = create<UserState>((set, get) => ({
         .single();
 
       if (error && status !== 406) {
+        // Handle missing table gracefully
+        if (error.code === '42P01') {
+          console.warn('Profiles table does not exist. Please run database setup.');
+          set({ profile: null, profileComplete: false });
+          return;
+        }
         throw error;
       }
 
@@ -79,6 +85,8 @@ export const useUser = create<UserState>((set, get) => ({
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      // Set default state if database is not set up
+      set({ profile: null, profileComplete: false });
     } finally {
       set({ loading: false });
     }
@@ -154,21 +162,32 @@ export const useAgent = create<AgentState>((set, get) => ({
         .select('*')
         .eq('user_id', userId);
 
-      if (error) throw error;
+      if (error) {
+        // Handle missing table gracefully
+        if (error.code === '42P01') {
+          console.warn('Flarebots table does not exist. Please run database setup.');
+          set({ availablePersonal: [] });
+          return;
+        }
+        throw error;
+      }
 
-      const personalAgents: Agent[] = data.map(dbAgent => ({
-        id: dbAgent.id,
-        name: dbAgent.name,
-        personality: dbAgent.personality || '',
-        bodyColor: dbAgent.body_color || '#58A6FF',
-        voice: dbAgent.voice,
-        menuDescription: dbAgent.menu_description || '',
-      }));
+      const personalAgents: Agent[] = data?.map(dbAgent => ({
+        id: dbAgent.id as string,
+        name: dbAgent.name as string,
+        personality: (dbAgent.personality as string) || '',
+        bodyColor: (dbAgent.body_color as string) || '#58A6FF',
+        voice: (dbAgent.voice as any) || 'Charon',
+        knowledgeBase: (dbAgent.knowledge_base as string) || '',
+        menuDescription: (dbAgent.menu_description as string) || '',
+      })) || [];
 
       set({ availablePersonal: personalAgents });
 
     } catch (error) {
       console.error('Error fetching personal agents:', error);
+      // Set empty array if database is not set up
+      set({ availablePersonal: [] });
     } finally {
       set({ loading: false });
     }

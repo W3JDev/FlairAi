@@ -1,0 +1,58 @@
+{
+  "supabase": {
+    "project_ref": "wrdfqnydraeyvjnpbiri",
+    "project_url": "https://wrdfqnydraeyvjnpbiri.supabase.co",
+    "context_files": [
+      ".copilot/supabase_context.txt",
+      ".copilot/database_schema.sql",
+      ".copilot/project_rules.txt"
+    ],
+    "preferred_patterns": [
+      "RLS policies with auth.uid() checks",
+      "UUID primary keys with gen_random_uuid()",
+      "JSONB settings columns for flexibility",
+      "Timestamptz for all datetime fields",
+      "Graceful error handling for missing tables",
+      "TypeScript strict mode compliance",
+      "Functional React components with hooks",
+      "Zustand for state management",
+      "Proper async/await error handling"
+    ],
+    "database_conventions": {
+      "primary_keys": "UUID DEFAULT gen_random_uuid()",
+      "foreign_keys": "UUID REFERENCES table(id)",
+      "timestamps": "TIMESTAMP WITH TIME ZONE DEFAULT NOW()",
+      "json_fields": "JSONB DEFAULT '{}'",
+      "text_arrays": "TEXT[]",
+      "boolean_defaults": "BOOLEAN DEFAULT true"
+    },
+    "typescript_patterns": {
+      "strict_mode": true,
+      "explicit_returns": true,
+      "proper_error_types": true,
+      "interface_over_type": false,
+      "prefer_const_assertions": true
+    },
+    "react_patterns": {
+      "functional_components": true,
+      "hooks_over_classes": true,
+      "explicit_hook_imports": true,
+      "memo_for_performance": true,
+      "callback_for_stability": true
+    }
+  },
+  "ai_integration": {
+    "voice_api": "Google Gemini Live API",
+    "supported_voices": ["Charon", "Aoede", "Fenrir", "Kore", "Leda", "Orus", "Puck", "Zephyr"],
+    "context_provider": "LiveAPIContext",
+    "animation_component": "BasicFace",
+    "state_management": "Zustand stores"
+  },
+  "development": {
+    "framework": "React 19 + TypeScript + Vite",
+    "bundler": "Vite with HMR",
+    "linting": "ESLint + TypeScript",
+    "formatting": "Prettier",
+    "testing": "Vitest + React Testing Library"
+  }
+}

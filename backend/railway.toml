@@ -1,0 +1,11 @@
+[build]
+dockerfilePath = "backend/Dockerfile"
+
+[deploy]
+numReplicas = 1
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+
+[env]
+NODE_ENV = "production"
+PORT = { $default = "3000" }

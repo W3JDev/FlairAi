@@ -40,7 +40,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
         <div className="lp-logo">
           <span role="img" aria-label="Flare Sparkle" style={{fontSize: '1.5em', marginRight: '8px'}}>🔥</span> FlareAI
         </div>
-        <button onClick={onLaunchApp} className="lp-button primary lp-header-launch-button">
+        <button onClick={() => {
+          console.log('Launch App button clicked!');
+          onLaunchApp();
+        }} className="lp-button primary lp-header-launch-button">
           Launch App
         </button>
       </header>
@@ -53,7 +56,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
             Train Smarter, Serve Better. Interactive AI roleplay for elite restaurant teams.
             Master customer service, upselling, and menu knowledge with customizable AI Flarebots.
           </p>
-          <button onClick={onLaunchApp} className="lp-button primary lp-cta-button">
+          <button onClick={() => {
+            console.log('Get Started button clicked!');
+            onLaunchApp();
+          }} className="lp-button primary lp-cta-button">
             Get Started Now <span className="icon" style={{marginLeft: '8px'}}>arrow_forward</span>
           </button>
         </div>

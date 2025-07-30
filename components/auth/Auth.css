@@ -91,3 +91,39 @@
   margin-top: 1rem;
   color: #666;
 }
+
+.demo-section {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.demo-button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.demo-button:hover {
+  background: #218838;
+}
+
+.demo-button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.demo-note {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}

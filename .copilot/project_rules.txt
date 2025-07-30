@@ -1,0 +1,127 @@
+FlairAi Development Rules and Patterns
+=====================================
+
+CODE STYLE GUIDELINES:
+- Use TypeScript strict mode for all new code
+- Prefer functional components with hooks over class components
+- Use arrow functions for component definitions
+- Import React hooks explicitly: import { useState, useEffect } from 'react'
+- Use descriptive variable names (profileComplete, not pc)
+
+SUPABASE INTEGRATION PATTERNS:
+- Always use the Supabase client from lib/supabase.ts
+- Handle errors gracefully with try-catch blocks
+- Check for specific error codes (42P01 = missing table)
+- Use .single() for queries expected to return one row
+- Use .eq() for equality filters, .in() for arrays
+
+EXAMPLE QUERY PATTERNS:
+```typescript
+// Good: Proper error handling
+try {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+    
+  if (error && error.code !== '406') {
+    if (error.code === '42P01') {
+      console.warn('Table does not exist');
+      return null;
+    }
+    throw error;
+  }
+  return data;
+} catch (error) {
+  console.error('Database error:', error);
+  return null;
+}
+
+// Bad: No error handling
+const { data } = await supabase.from('profiles').select('*');
+```
+
+STATE MANAGEMENT RULES:
+- Use Zustand for global state management
+- Keep component state local when possible
+- Use create<StateType>() for typed Zustand stores
+- Separate concerns: useUser, useAgent, useUI stores
+- Update state immutably
+
+REACT COMPONENT PATTERNS:
+- Export default function ComponentName() {}
+- Use PascalCase for component names
+- Use camelCase for props and variables
+- Props interfaces should end with "Props"
+- Use React.FC only when necessary
+
+AI INTEGRATION RULES:
+- Use LiveAPIContext for voice interactions
+- Check connection status before using voice features
+- Handle volume changes for mouth animations
+- Implement graceful fallbacks for missing AI features
+- Use proper voice type enums
+
+FILE ORGANIZATION:
+- Components in /components or /src-business/components
+- Contexts in /contexts or /src-business/contexts  
+- Utils in /lib or /src-business/lib
+- Types in separate .types.ts files when complex
+- Tests adjacent to source files (.test.ts)
+
+NAMING CONVENTIONS:
+- Files: kebab-case for components (user-settings.tsx)
+- Directories: kebab-case (demo/keynote-companion)
+- Variables: camelCase (showUserConfig)
+- Constants: SCREAMING_SNAKE_CASE (API_KEY)
+- Types: PascalCase (UserProfile, AgentState)
+
+DATABASE CONVENTIONS:
+- Table names: lowercase_snake_case (flarebots, training_sessions)
+- Column names: lowercase_snake_case (user_id, created_at)
+- UUID columns: always use gen_random_uuid() as default
+- Foreign keys: reference_table_id format
+- Timestamps: use timestamptz, default NOW()
+
+SECURITY PATTERNS:
+- Always enable RLS on new tables
+- Create policies for each operation (SELECT, INSERT, UPDATE, DELETE)
+- Use auth.uid() for user-specific policies
+- Never trust client input - validate server-side
+- Store sensitive data in environment variables
+
+PERFORMANCE GUIDELINES:
+- Use React.memo() for expensive components
+- Implement proper loading states
+- Use useCallback() for stable function references
+- Debounce user input for search/filter operations
+- Optimize database queries with proper indexes
+
+TESTING PATTERNS:
+- Write tests for critical business logic
+- Mock Supabase client in tests
+- Test error scenarios and edge cases
+- Use React Testing Library for component tests
+- Test user interactions, not implementation details
+
+DEPLOYMENT CONSIDERATIONS:
+- Environment variables for all configuration
+- Build optimization for production
+- Proper error boundaries for React components
+- Health checks for external dependencies
+- Monitoring and logging for production issues
+
+ACCESSIBILITY STANDARDS:
+- Use semantic HTML elements
+- Provide alt text for images
+- Ensure keyboard navigation
+- Use ARIA labels where needed
+- Maintain color contrast ratios
+
+ERROR HANDLING PHILOSOPHY:
+- Fail gracefully with user-friendly messages
+- Log errors for debugging but don't expose to users
+- Provide fallback UI states for missing data
+- Handle network failures with retry mechanisms
+- Show loading states during async operations

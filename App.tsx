@@ -31,9 +31,11 @@ import { LiveAPIProvider } from './contexts/LiveAPIContext';
 import { useUI } from './lib/state';
 import React, { useState, useEffect } from 'react';
 
-// Use process.env.API_KEY as per guidelines and assume it's pre-configured and valid.
+// Use import.meta.env.VITE_GEMINI_API_KEY for Vite environment variables
 // Cast to string to satisfy downstream type expectations.
-const API_KEY = process.env.API_KEY as string;
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string;
+
+console.log('API_KEY loaded:', API_KEY ? 'Yes (length: ' + API_KEY.length + ')' : 'No - undefined or empty');
 
 /**
  * Main application component that provides a streaming interface for Live API.
@@ -44,6 +46,13 @@ function App() {
   const [showLandingPage, setShowLandingPage] = useState(true);
   const [animatedFooterText, setAnimatedFooterText] = useState<React.ReactNode>(<>My ❤️ with Love</>);
   const [footerTextOpacity, setFooterTextOpacity] = useState(1);
+
+  console.log('App render - showLandingPage:', showLandingPage);
+
+  const handleLaunchApp = () => {
+    console.log('handleLaunchApp called, setting showLandingPage to false');
+    setShowLandingPage(false);
+  };
 
   useEffect(() => {
     if (showLandingPage) return; // Don't run animation if landing page is shown
@@ -64,8 +73,10 @@ function App() {
   }, [showLandingPage]);
 
   if (showLandingPage) {
-    return <LandingPage onLaunchApp={() => setShowLandingPage(false)} />;
+    return <LandingPage onLaunchApp={handleLaunchApp} />;
   }
+
+  console.log('Rendering main app with API_KEY:', API_KEY ? 'Present' : 'Missing');
 
   return (
     <div className="App">
