@@ -1,24 +1,24 @@
 
-import { create } from 'zustand';
 import { User as AuthUser } from '@supabase/supabase-js';
-import { supabase } from './supabaseClient';
+import { create } from 'zustand';
 import {
   Agent,
   AuraAssist,
-  ProfessorEtiquette,
-  CountessCouture,
-  CulinaryCometShane,
-  Penny,
+  BahasaMalaysiaTrainerAgent,
+  BengaliTrainerAgent,
   ChallengingCustomerAgent,
+  ChineseMalaysianTrainerAgent,
+  CountessCouture,
+  createNewAgent,
+  CulinaryCometShane,
   InquisitiveFoodieAgent,
   MenuKnowledgeAssistantAgent,
-  BahasaMalaysiaTrainerAgent,
-  ChineseMalaysianTrainerAgent,
-  TamilMalaysianTrainerAgent,
   MyanmarTrainerAgent,
-  BengaliTrainerAgent,
-  createNewAgent
+  Penny,
+  ProfessorEtiquette,
+  TamilMalaysianTrainerAgent
 } from '../../lib/presets/agents';
+import { supabase } from './supabaseClient';
 
 // Database types
 export type Profile = {
@@ -81,7 +81,8 @@ export const useUser = create<UserState>((set, get) => ({
       }
 
       if (data) {
-        set({ profile: data, profileComplete: !!(data.name && data.gender) });
+        const profileData = data as Profile;
+        set({ profile: profileData, profileComplete: !!(profileData.name && profileData.gender) });
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -107,7 +108,8 @@ export const useUser = create<UserState>((set, get) => ({
       if (error) throw error;
 
       if (data) {
-        set({ profile: data, profileComplete: !!(data.name && data.gender) });
+        const profileData = data as Profile;
+        set({ profile: profileData, profileComplete: !!(profileData.name && profileData.gender) });
       }
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -228,13 +230,15 @@ export const useAgent = create<AgentState>((set, get) => ({
       if (error) throw error;
 
       if (data) {
+        const flarebotData = data as Flarebot;
         const addedAgent: Agent = {
-          id: data.id,
-          name: data.name,
-          personality: data.personality || '',
-          bodyColor: data.body_color || '#58A6FF',
-          voice: data.voice,
-          menuDescription: data.menu_description || '',
+          id: flarebotData.id,
+          name: flarebotData.name,
+          personality: flarebotData.personality || '',
+          bodyColor: flarebotData.body_color || '#58A6FF',
+          voice: flarebotData.voice,
+          knowledgeBase: '', // Default empty knowledge base
+          menuDescription: flarebotData.menu_description || '',
         };
         set(state => ({
           availablePersonal: [...state.availablePersonal, addedAgent],
@@ -251,15 +255,15 @@ export const useAgent = create<AgentState>((set, get) => ({
   updateAgent: async (agentId: string, adjustments: Partial<Agent>) => {
     // Presets cannot be updated in the DB
     if (get().availablePresets.some(p => p.id === agentId)) {
-        const agent = get().availablePresets.find(a => a.id === agentId)!;
-        const updatedAgent = { ...agent, ...adjustments };
-         set(state => ({
-            availablePresets: state.availablePresets.map(a =>
-                a.id === agentId ? updatedAgent : a
-            ),
-            current: state.current.id === agentId ? updatedAgent : state.current,
-        }));
-        return;
+      const agent = get().availablePresets.find(a => a.id === agentId)!;
+      const updatedAgent = { ...agent, ...adjustments };
+      set(state => ({
+        availablePresets: state.availablePresets.map(a =>
+          a.id === agentId ? updatedAgent : a
+        ),
+        current: state.current.id === agentId ? updatedAgent : state.current,
+      }));
+      return;
     }
 
     set({ loading: true });
@@ -282,13 +286,15 @@ export const useAgent = create<AgentState>((set, get) => ({
       if (error) throw error;
 
       if (data) {
+        const flarebotData = data as Flarebot;
         const updatedAgent: Agent = {
-          id: data.id,
-          name: data.name,
-          personality: data.personality || '',
-          bodyColor: data.body_color || '#58A6FF',
-          voice: data.voice,
-          menuDescription: data.menu_description || '',
+          id: flarebotData.id,
+          name: flarebotData.name,
+          personality: flarebotData.personality || '',
+          bodyColor: flarebotData.body_color || '#58A6FF',
+          voice: flarebotData.voice,
+          knowledgeBase: '', // Default empty knowledge base
+          menuDescription: flarebotData.menu_description || '',
         };
 
         set(state => ({
