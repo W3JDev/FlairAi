@@ -20,13 +20,13 @@
  * limitations under the License.
  */
 
-import AgentEdit from './components/AgentEdit';
-import ControlTray from './components/console/control-tray/ControlTray';
-import ErrorScreen from './components/demo/ErrorSreen';
-import KeynoteCompanion from './components/demo/keynote-companion/KeynoteCompanion';
-import Header from './components/Header';
-import UserSettings from './components/UserSettings';
-import LandingPage from './components/LandingPage'; // Import LandingPage
+import AgentEdit from './src-business/components/AgentEdit';
+import ControlTray from './src-business/components/console/control-tray/ControlTray';
+import ErrorScreen from './src-business/components/demo/ErrorSreen';
+import KeynoteCompanion from './src-business/components/demo/keynote-companion/KeynoteCompanion';
+import Header from './src-business/components/Header';
+import UserSettings from './src-business/components/UserSettings';
+import LandingPage from './src-business/components/LandingPage'; // Import LandingPage
 import { LiveAPIProvider } from './contexts/LiveAPIContext';
 import { useUI } from './lib/state';
 import React, { useState, useEffect } from 'react';
@@ -62,7 +62,7 @@ function App() {
       setTimeout(() => {
         setAnimatedFooterText(
           <>
-            Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer" style={{color: 'var(--Accent-Blue-Primary)'}}>W3JDEV</a>
+            Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--Accent-Blue-Primary)' }}>W3JDEV</a>
           </>
         );
         setFooterTextOpacity(1); // Start fade in
@@ -96,8 +96,8 @@ function App() {
         </div>
       </LiveAPIProvider>
       <div className="brandmark-feedback-container">
-        <div 
-          className="brandmark-item" 
+        <div
+          className="brandmark-item"
           style={{ opacity: footerTextOpacity, transition: 'opacity 0.5s ease-in-out' }}
           aria-live="polite"
         >

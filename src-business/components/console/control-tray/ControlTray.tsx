@@ -21,13 +21,13 @@
 import cn from 'classnames';
 import EventEmitter from 'eventemitter3';
 import { memo, ReactNode, useEffect, useRef, useState }
-from 'react';
+  from 'react';
 // Assuming AudioRecorderEventTypes is exported or defined accessible here
 // For simplicity if not, using 'any' for EventEmitter generic with audioRecorder.
-import { AudioRecorder } from '../../../lib/audio-recorder';
+import { AudioRecorder } from '../../../lib/audio-recorder'
 
 import { useLiveAPIContext } from '../../../contexts/LiveAPIContext';
-import { useUI } from '@/lib/state';
+import { useUI } from '../../../lib/state';
 
 export type ControlTrayProps = {
   children?: ReactNode;

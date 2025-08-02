@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import { useEffect, useRef, useState } from 'react';
-import { useLiveAPIContext } from '../../src-business/contexts/LiveAPIContext';
+import { useLiveAPIContext } from '../../contexts/LiveAPIContext';
 
 // --- Reusable Animation Helper Functions ---
 function easeOutQuint(x: number): number {

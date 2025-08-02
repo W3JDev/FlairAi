@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React, { useRef, useEffect, useState } from 'react';
-import BasicFace from '../../components/demo/basic-face/BasicFace'; // Reusing the avatar
+import BasicFace from './demo/basic-face/BasicFace'; // Reusing the avatar
 import { AGENT_COLORS, AuraAssist } from '../../lib/presets/agents';
 
 interface BusinessLandingPageProps {
@@ -39,17 +39,17 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
     <div className="landing-page">
       <header className="lp-header">
         <div className="lp-logo">
-          <span role="img" aria-label="Flare Sparkle" style={{fontSize: '1.5em', marginRight: '8px'}}>🚀</span> FlareAI for Business
+          <span role="img" aria-label="Flare Sparkle" style={{ fontSize: '1.5em', marginRight: '8px' }}>🚀</span> FlareAI for Business
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {onTestMode && (
-            <button 
+            <button
               onClick={() => {
                 console.log('Test Mode button clicked in BusinessLandingPage!');
                 onTestMode();
-              }} 
+              }}
               className="lp-button secondary"
-              style={{ 
+              style={{
                 background: '#28a745',
                 color: 'white',
                 border: 'none',
@@ -82,7 +82,7 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
             console.log('Get Started Now button clicked in BusinessLandingPage!');
             onLaunchApp();
           }} className="lp-button primary lp-cta-button">
-            Get Started Now <span className="icon" style={{marginLeft: '8px'}}>arrow_forward</span>
+            Get Started Now <span className="icon" style={{ marginLeft: '8px' }}>arrow_forward</span>
           </button>
         </div>
         <div className="lp-hero-avatar">
@@ -119,22 +119,22 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
       <section className="lp-section lp-features">
         <h2>Experience the Future of Business Automation</h2>
         <div className="lp-features-grid">
-          <div className="lp-feature-card" style={{'--card-index': 0} as React.CSSProperties}>
+          <div className="lp-feature-card" style={{ '--card-index': 0 } as React.CSSProperties}>
             <span className="icon lp-feature-icon">record_voice_over</span>
             <h3>Realistic AI Agents</h3>
             <p>Engage in dynamic voice-based conversations with AI agents that adapt to your business's unique needs and customer types.</p>
           </div>
-          <div className="lp-feature-card" style={{'--card-index': 1} as React.CSSProperties}>
+          <div className="lp-feature-card" style={{ '--card-index': 1 } as React.CSSProperties}>
             <span className="icon lp-feature-icon">smart_toy</span>
             <h3>Customizable Agents</h3>
             <p>Design AI agents with specific personalities and in-depth knowledge of your products, services, and operational procedures.</p>
           </div>
-          <div className="lp-feature-card" style={{'--card-index': 2} as React.CSSProperties}>
+          <div className="lp-feature-card" style={{ '--card-index': 2 } as React.CSSProperties}>
             <span className="icon lp-feature-icon">translate</span>
             <h3>Multilingual Support</h3>
             <p>Equip your agents to serve a global audience with dedicated language support for various languages.</p>
           </div>
-           <div className="lp-feature-card" style={{'--card-index': 3} as React.CSSProperties}>
+          <div className="lp-feature-card" style={{ '--card-index': 3 } as React.CSSProperties}>
             <span className="icon lp-feature-icon">bar_chart</span>
             <h3>Performance Analytics</h3>
             <p>Track the performance of your agents and identify areas for improvement with our built-in analytics dashboard.</p>
@@ -146,11 +146,11 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
       <section className="lp-section lp-benefits">
         <h2>Unlock Peak Performance</h2>
         <ul className="lp-benefits-list">
-          <li className="lp-benefit-item" style={{'--item-index': 0} as React.CSSProperties}><span className="icon">check_circle_outline</span> Automate Repetitive Tasks & Free Up Your Team</li>
-          <li className="lp-benefit-item" style={{'--item-index': 1} as React.CSSProperties}><span className="icon">check_circle_outline</span> Boost Sales & Lead Generation</li>
-          <li className="lp-benefit-item" style={{'--item-index': 2} as React.CSSProperties}><span className="icon">check_circle_outline</span> Improve Customer Satisfaction & Loyalty</li>
-          <li className="lp-benefit-item" style={{'--item-index': 3} as React.CSSProperties}><span className="icon">check_circle_outline</span> Reduce Onboarding Time for New Hires</li>
-          <li className="lp-benefit-item" style={{'--item-index': 4} as React.CSSProperties}><span className="icon">check_circle_outline</span> Empower Your Team with AI-Powered Tools</li>
+          <li className="lp-benefit-item" style={{ '--item-index': 0 } as React.CSSProperties}><span className="icon">check_circle_outline</span> Automate Repetitive Tasks & Free Up Your Team</li>
+          <li className="lp-benefit-item" style={{ '--item-index': 1 } as React.CSSProperties}><span className="icon">check_circle_outline</span> Boost Sales & Lead Generation</li>
+          <li className="lp-benefit-item" style={{ '--item-index': 2 } as React.CSSProperties}><span className="icon">check_circle_outline</span> Improve Customer Satisfaction & Loyalty</li>
+          <li className="lp-benefit-item" style={{ '--item-index': 3 } as React.CSSProperties}><span className="icon">check_circle_outline</span> Reduce Onboarding Time for New Hires</li>
+          <li className="lp-benefit-item" style={{ '--item-index': 4 } as React.CSSProperties}><span className="icon">check_circle_outline</span> Empower Your Team with AI-Powered Tools</li>
         </ul>
       </section>
 
@@ -158,18 +158,18 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
       <section className="lp-section lp-how-it-works">
         <h2>Simple Steps to Success</h2>
         <div className="lp-steps-container">
-          <div className="lp-step" style={{'--step-index': 0} as React.CSSProperties}>
+          <div className="lp-step" style={{ '--step-index': 0 } as React.CSSProperties}>
             <div className="lp-step-icon-container"><span className="icon lp-step-icon">person_add</span></div>
             <h3>1. Personalize</h3>
             <p>Set up your organization and create your first AI agent with a unique persona.</p>
           </div>
-          <div className="lp-step" style={{'--step-index': 1} as React.CSSProperties}>
+          <div className="lp-step" style={{ '--step-index': 1 } as React.CSSProperties}>
             <div className="lp-step-icon-container"><span className="icon lp-step-icon">menu_book</span></div>
             <h3>2. Educate</h3>
             <p>Define your business's knowledge base, such as products, services, and procedures.</p>
           </div>
-          <div className="lp-step" style={{'--step-index': 2} as React.CSSProperties}>
-           <div className="lp-step-icon-container"> <span className="icon lp-step-icon">spatial_audio_off</span></div>
+          <div className="lp-step" style={{ '--step-index': 2 } as React.CSSProperties}>
+            <div className="lp-step-icon-container"> <span className="icon lp-step-icon">spatial_audio_off</span></div>
             <h3>3. Deploy</h3>
             <p>Deploy your AI agents to your website, mobile app, or other channels.</p>
           </div>
@@ -181,13 +181,13 @@ const BusinessLandingPage: React.FC<BusinessLandingPageProps> = ({ onLaunchApp, 
         <h2>Ready to Transform Your Business?</h2>
         <p>Step into the future of business automation with FlareAI for Business. Empower your team, delight your customers, and watch your business thrive.</p>
         <button onClick={onLaunchApp} className="lp-button primary lp-cta-button">
-          Launch FlareAI for Business Now <span className="icon" style={{marginLeft: '8px'}}>rocket_launch</span>
+          Launch FlareAI for Business Now <span className="icon" style={{ marginLeft: '8px' }}>rocket_launch</span>
         </button>
       </section>
 
       <footer className="lp-footer">
         <div className="lp-footer-brandmark">
-            Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer">W3JDEV</a>
+          Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer">W3JDEV</a>
         </div>
         <p>&copy; {new Date().getFullYear()} FlareAI for Business. Revolutionizing Business Automation.</p>
       </footer>
