@@ -5,7 +5,7 @@
 */
 import React, { useRef, useEffect, useState } from 'react';
 import BasicFace from './demo/basic-face/BasicFace'; // Reusing the avatar
-import { AGENT_COLORS, AuraAssist } from '../../lib/presets/agents';
+import { AGENT_COLORS, AuraAssist } from '../lib/presets/agents';
 
 interface BusinessLandingPageProps {
   onLaunchApp: () => void;

@@ -17,7 +17,7 @@ import {
   Penny,
   ProfessorEtiquette,
   TamilMalaysianTrainerAgent
-} from '../../lib/presets/agents';
+} from './presets/agents';
 import { supabase } from './supabaseClient';
 
 // Database types

@@ -9,7 +9,7 @@ import {
   AGENT_COLORS,
   INTERLOCUTOR_VOICE,
   INTERLOCUTOR_VOICES,
-} from '../../lib/presets/agents';
+} from '../lib/presets/agents';
 import Modal from './Modal';
 import c from 'classnames';
 import { useAgent, useUI } from '../lib/state';
