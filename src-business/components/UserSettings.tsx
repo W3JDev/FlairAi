@@ -3,7 +3,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import Modal from '../../components/Modal';
+import Modal from './Modal';
 import { useUI, useUser } from '../lib/state';
 import type { Profile } from '../lib/state';
 import { useState, useEffect, FormEvent } from 'react';
@@ -55,8 +55,8 @@ export default function UserSettings() {
 
   const handleClose = () => {
     if (!profile?.name || !profile?.gender) {
-       alert('Please fill in Your Full Name and Gender to continue.');
-       return;
+      alert('Please fill in Your Full Name and Gender to continue.');
+      return;
     }
     setShowUserConfig(false);
   }

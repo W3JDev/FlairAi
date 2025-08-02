@@ -9,8 +9,8 @@ import {
   AGENT_COLORS,
   INTERLOCUTOR_VOICE,
   INTERLOCUTOR_VOICES,
-} from '../../lib/presets/agents';
-import Modal from '../../components/Modal';
+} from '../lib/presets/agents';
+import Modal from './Modal';
 import c from 'classnames';
 import { useAgent, useUI } from '../lib/state';
 
@@ -120,7 +120,7 @@ export default function EditAgent() {
               ))}
             </select>
           </div>
-           <button type="submit" className="button primary" disabled={loading}>
+          <button type="submit" className="button primary" disabled={loading}>
             {loading ? 'Saving...' : 'Save Changes'}
           </button>
         </div>

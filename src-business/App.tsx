@@ -9,14 +9,14 @@ import { supabase } from './lib/supabaseClient';
 import { useAgent, useUI, useUser } from './lib/state';
 
 import AgentEdit from './components/AgentEdit';
-import ControlTray from '../components/console/control-tray/ControlTray';
-import ErrorScreen from '../components/demo/ErrorSreen';
+import ControlTray from './components/console/control-tray/ControlTray';
+import ErrorScreen from './components/demo/ErrorSreen';
 import KeynoteCompanion from './components/demo/keynote-companion/KeynoteCompanion';
-import Header from '../components/Header';
+import Header from './components/Header';
 import UserSettings from './components/UserSettings';
 import BusinessLandingPage from './components/BusinessLandingPage';
-import Auth from '../components/auth/Auth';
-import DatabaseAlert from '../components/DatabaseAlert';
+import Auth from './components/auth/Auth';
+import DatabaseAlert from './components/DatabaseAlert';
 import { LiveAPIProvider } from './contexts/LiveAPIContext';
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string;
@@ -36,7 +36,7 @@ function BusinessApp() {
       setTimeout(() => {
         setAnimatedFooterText(
           <>
-            Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer" style={{color: 'var(--Accent-Blue-Primary)'}}>W3JDEV</a>
+            Love by <a href="https://www.github.com/w3jdev" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--Accent-Blue-Primary)' }}>W3JDEV</a>
           </>
         );
         setFooterTextOpacity(1);
@@ -49,8 +49,8 @@ function BusinessApp() {
       const originalError = console.error;
       console.error = (...args) => {
         const errorMessage = args.join(' ');
-        if (errorMessage.includes('relation "public.profiles" does not exist') || 
-            errorMessage.includes('relation "public.flarebots" does not exist')) {
+        if (errorMessage.includes('relation "public.profiles" does not exist') ||
+          errorMessage.includes('relation "public.flarebots" does not exist')) {
           setShowDatabaseAlert(true);
         }
         originalError.apply(console, args);
@@ -80,7 +80,7 @@ function BusinessApp() {
             <ControlTray />
           </main>
         </div>
-        
+
         <div className="brandmark-feedback-container">
           <div
             className="brandmark-item"
@@ -91,10 +91,10 @@ function BusinessApp() {
           </div>
           <a href="#feedback" className="feedback-link" onClick={(e) => { e.preventDefault(); alert('Feedback system coming soon!'); }}>Feedback</a>
         </div>
-        
-        <DatabaseAlert 
-          show={showDatabaseAlert} 
-          onDismiss={() => setShowDatabaseAlert(false)} 
+
+        <DatabaseAlert
+          show={showDatabaseAlert}
+          onDismiss={() => setShowDatabaseAlert(false)}
         />
       </LiveAPIProvider>
     </div>
@@ -122,7 +122,7 @@ function App() {
       try {
         // Try to get session with a longer timeout and better error handling
         const { data: { session }, error } = await supabase.auth.getSession();
-        
+
         if (error) {
           console.warn('Supabase auth error:', error.message);
           // Continue with no session instead of failing
@@ -193,18 +193,18 @@ function App() {
   // Quick test mode to bypass everything and see if BusinessApp renders
   if (testMode) {
     return (
-      <div style={{ 
-        padding: '2rem', 
-        background: '#0D1117', 
-        color: 'white', 
-        minHeight: '100vh' 
+      <div style={{
+        padding: '2rem',
+        background: '#0D1117',
+        color: 'white',
+        minHeight: '100vh'
       }}>
         <h1>🔥 FlairAi Test Mode</h1>
         <p>This confirms the app is rendering correctly!</p>
-        <button 
+        <button
           onClick={() => setTestMode(false)}
-          style={{ 
-            padding: '0.5rem 1rem', 
+          style={{
+            padding: '0.5rem 1rem',
             margin: '1rem 0',
             background: '#007bff',
             color: 'white',
@@ -225,11 +225,11 @@ function App() {
 
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
+      <div style={{
+        display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '100vh',
         background: '#1a1a1a',
         color: 'white'
@@ -238,7 +238,7 @@ function App() {
           <h2>🔥 FlairAi Loading...</h2>
           <p>Initializing your AI training platform</p>
           <div style={{ margin: '1rem 0' }}>
-            <button 
+            <button
               onClick={() => {
                 console.log('Skip loading clicked');
                 setLoading(false);
@@ -256,7 +256,7 @@ function App() {
             >
               Skip Loading (Debug)
             </button>
-            <button 
+            <button
               onClick={() => {
                 console.log('Test mode clicked');
                 setTestMode(true);
@@ -290,7 +290,7 @@ function App() {
       <div>
         <Auth />
         <div style={{ textAlign: 'center', padding: '1rem' }}>
-          <button 
+          <button
             onClick={() => {
               console.log('Entering demo mode');
               setDemoMode(true);
@@ -312,7 +312,7 @@ function App() {
   }
 
   if (!session) {
-    return <BusinessLandingPage 
+    return <BusinessLandingPage
       onLaunchApp={() => {
         console.log('Launch App clicked - showing authentication');
         setShowAuth(true);
